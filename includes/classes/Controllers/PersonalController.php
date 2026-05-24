@@ -30,6 +30,12 @@ class PersonalController extends BaseController {
         if (strlen($datos['nombre']) > 25 || strlen($datos['apellido']) > 25) {
             return ['status' => 'error', 'msg' => 'Nombre o apellido demasiado largo.'];
         }
+        if (!preg_match("/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/", $datos['nombre'])) {
+            return ['status' => 'error', 'msg' => 'El nombre solo puede contener letras.'];
+        }
+        if (!preg_match("/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/", $datos['apellido'])) {
+            return ['status' => 'error', 'msg' => 'El apellido solo puede contener letras.'];
+        }
 
         if ($this->model->insertar($datos)) {
             $this->registrarBitacora("Personal médico registrado: {$datos['nombre']} {$datos['apellido']}");
@@ -41,6 +47,12 @@ class PersonalController extends BaseController {
     public function actualizar($datos, $cedula_vieja) {
         if (strlen($datos['nombre']) > 25 || strlen($datos['apellido']) > 25) {
             return ['status' => 'error', 'msg' => 'Nombre o apellido demasiado largo (Máximo 25 caracteres).'];
+        }
+        if (!preg_match("/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/", $datos['nombre'])) {
+            return ['status' => 'error', 'msg' => 'El nombre solo puede contener letras.'];
+        }
+        if (!preg_match("/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/", $datos['apellido'])) {
+            return ['status' => 'error', 'msg' => 'El apellido solo puede contener letras.'];
         }
 
         if ($this->model->actualizar($datos, $cedula_vieja)) {

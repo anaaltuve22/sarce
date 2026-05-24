@@ -101,6 +101,10 @@ class UsuarioController extends BaseController {
             return ['status' => 'error', 'msg' => 'La contraseña debe tener al menos 8 caracteres.'];
         }
 
+        if ($datos['clave'] !== ($datos['confirmar_clave'] ?? '')) {
+            return ['status' => 'error', 'msg' => 'Las contraseñas no coinciden.'];
+        }
+
         if ($this->model->getByLogin($datos['usuario']) || $this->model->getByLogin($datos['correo'])) {
             return ['status' => 'error', 'msg' => 'El nombre de usuario o el correo electrónico ya están registrados.'];
         }
@@ -138,16 +142,31 @@ class UsuarioController extends BaseController {
             unset($datos[$p_key], $datos[$r_key]);
         }
 
+        // Validaciones de negocio: Nombre y Apellido
+        if (strlen($datos['nombre']) > 25 || strlen($datos['apellido']) > 25) {
+            return ['status' => 'error', 'msg' => 'El nombre y apellido no deben exceder los 25 caracteres cada uno.'];
+        }
+        if (!preg_match("/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/", $datos['nombre'])) {
+            return ['status' => 'error', 'msg' => 'El nombre solo puede contener letras y espacios.'];
+        }
+        if (!preg_match("/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/", $datos['apellido'])) {
+            return ['status' => 'error', 'msg' => 'El apellido solo puede contener letras y espacios.'];
+        }
+
         if (!filter_var($datos['correo'], FILTER_VALIDATE_EMAIL)) {
             return ['status' => 'error', 'msg' => 'Formato de correo electrónico inválido.'];
         }
 
         // Procesar contraseña si se envió una nueva
         if (!empty($datos['clave'])) {
+            if ($datos['clave'] !== ($datos['confirmar_clave'] ?? '')) {
+                return ['status' => 'error', 'msg' => 'Las contraseñas no coinciden.'];
+            }
             $datos['clave'] = password_hash($datos['clave'], PASSWORD_DEFAULT);
         } else {
             unset($datos['clave']);
         }
+        unset($datos['confirmar_clave']);
 
         // Seguridad: Si no es admin, impedimos que se modifique el rol o el nombre de usuario
         if (!$esAdmin) {

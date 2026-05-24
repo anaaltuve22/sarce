@@ -32,15 +32,26 @@ include '../../includes/layout_header.php';
 
     <form method="POST">
         <div class="form-grid">
-            <div class="input-box"><label>Nombre:</label><input type="text" name="nombre" value="<?php echo $datos['nombre']; ?>" required></div>
-            <div class="input-box"><label>Apellido:</label><input type="text" name="apellido" value="<?php echo $datos['apellido']; ?>" required></div>
+            <div class="input-box"><label>Nombre:</label><input type="text" name="nombre" value="<?php echo $datos['nombre']; ?>" maxlength="25" onkeypress="return soloLetras(event)" required></div>
+            <div class="input-box"><label>Apellido:</label><input type="text" name="apellido" value="<?php echo $datos['apellido']; ?>" maxlength="25" onkeypress="return soloLetras(event)" required></div>
         </div>
         <div class="input-box"><label>Correo:</label><input type="email" name="correo" value="<?php echo $datos['correo']; ?>" required></div>
         <div class="input-box"><label>Usuario:</label><input type="text" <?php echo $esAdmin ? 'name="usuario"' : 'class="readonly-input" readonly'; ?> value="<?php echo $datos['usuario']; ?>"></div>
         
         <div class="input-box">
-            <label>Nueva Contraseña (dejar vacío para no cambiar):</label>
-            <input type="password" name="clave" placeholder="********">
+            <label><i class="fas fa-lock"></i> Nueva Contraseña (dejar vacío para no cambiar):</label>
+            <div class="password-wrapper">
+                <input type="password" name="clave" id="clave" placeholder="********">
+                <i class="fas fa-eye toggle-password" onclick="togglePassword('clave', this)"></i>
+            </div>
+        </div>
+
+        <div class="input-box">
+            <label><i class="fas fa-check-double"></i> Confirmar Contraseña:</label>
+            <div class="password-wrapper">
+                <input type="password" name="confirmar_clave" id="confirmar_clave" placeholder="Repita la contraseña">
+                <i class="fas fa-eye toggle-password" onclick="togglePassword('confirmar_clave', this)"></i>
+            </div>
         </div>
 
         <div class="input-box">

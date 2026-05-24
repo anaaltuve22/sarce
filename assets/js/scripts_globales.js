@@ -22,6 +22,24 @@ function soloNumeros(e) {
     if (key < 48 || key > 57) return false;
 }
 
+/**
+ * Alterna la visibilidad de los campos de contraseña
+ * @param {string} inputId - ID del campo de entrada
+ * @param {HTMLElement} icon - El elemento del icono (this)
+ */
+function togglePassword(inputId, icon) {
+    const input = document.getElementById(inputId);
+    if (!input) return;
+
+    if (input.type === "password") {
+        input.type = "text";
+        icon.classList.replace('fa-eye', 'fa-eye-slash');
+    } else {
+        input.type = "password";
+        icon.classList.replace('fa-eye-slash', 'fa-eye');
+    }
+}
+
 // --- MÓDULO PACIENTES Y PERSONAL ---
 function calcularEdad() {
     const fechaInput = document.getElementById("fecha_nacimiento");
@@ -296,7 +314,37 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     }
+
+    // Inicializar validación de contraseñas en tiempo real
+    setupPasswordMatch('clave', 'confirmar_clave');
+    setupPasswordMatch('nueva_clave', 'confirmar_clave');
 });
+
+/**
+ * Compara dos campos de contraseña en tiempo real y aplica clases CSS de validación.
+ */
+function setupPasswordMatch(id1, id2) {
+    const p1 = document.getElementById(id1);
+    const p2 = document.getElementById(id2);
+    if (!p1 || !p2) return;
+
+    const validate = () => {
+        if (p2.value === "") {
+            p2.classList.remove('is-valid', 'is-invalid');
+            return;
+        }
+        if (p1.value === p2.value) {
+            p2.classList.remove('is-invalid');
+            p2.classList.add('is-valid');
+        } else {
+            p2.classList.remove('is-valid');
+            p2.classList.add('is-invalid');
+        }
+    };
+
+    p1.addEventListener('input', validate);
+    p2.addEventListener('input', validate);
+}
 
 /**
  * Confirmación de reinicio de contraseña con SweetAlert2

@@ -66,6 +66,14 @@ if (isset($_POST['registrar_personal'])) {
         </div>
 
         <div class="input-box">
+            <label><i class="fas fa-check-double"></i> Confirmar Contraseña:</label>
+            <div class="password-wrapper">
+                <input type="password" name="confirmar_clave" id="confirmar_clave" placeholder="Repita la contraseña" autocomplete="new-password" required>
+                <i class="fas fa-eye toggle-password" onclick="togglePassword('confirmar_clave', this)"></i>
+            </div>
+        </div>
+
+        <div class="input-box">
             <label><i class="fas fa-shield-alt"></i> Pregunta de Seguridad 1:</label>
             <select name="p1" required>
                 <option value="">Seleccione...</option>
@@ -110,18 +118,5 @@ if (isset($_POST['registrar_personal'])) {
         </div>
     </form>
 </div>
-
-<script>
-function togglePassword(inputId, icon) {
-    const input = document.getElementById(inputId);
-    if (input.type === "password") {
-        input.type = "text";
-        icon.classList.replace('fa-eye', 'fa-eye-slash');
-    } else {
-        input.type = "password";
-        icon.classList.replace('fa-eye-slash', 'fa-eye');
-    }
-}
-</script>
 
 <?php include '../../includes/layout_footer.php'; ?>

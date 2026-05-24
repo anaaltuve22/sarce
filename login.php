@@ -37,6 +37,7 @@ if (isset($_POST['login'])) {
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/estilos_globales.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="assets/js/scripts_globales.js" defer></script>
     <style>body { height: 100vh; display: flex; justify-content: center; align-items: center; background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('<?php echo IMG_URL; ?>fotoambulatorio.jpg'); background-size: cover; background-position: center; }</style>
 </head>
 <body>
@@ -68,19 +69,6 @@ if (isset($_POST['login'])) {
         <a href="<?php echo MOD_SISTEMA; ?>recuperar.php">¿Olvidó su contraseña?</a>
     </div>
 </div>
-
-<script>
-function togglePassword(inputId, icon) {
-    const input = document.getElementById(inputId);
-    if (input.type === "password") {
-        input.type = "text";
-        icon.classList.replace('fa-eye', 'fa-eye-slash');
-    } else {
-        input.type = "password";
-        icon.classList.replace('fa-eye-slash', 'fa-eye');
-    }
-}
-</script>
 
 </body>
 </html>

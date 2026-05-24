@@ -33,6 +33,12 @@ class PacienteController extends BaseController {
         if (strlen($datos['nombre']) > 25 || strlen($datos['apellido']) > 25) {
             return ['status' => 'error', 'msg' => 'El nombre y apellido no deben exceder los 25 caracteres cada uno.'];
         }
+        if (!preg_match("/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/", $datos['nombre'])) {
+            return ['status' => 'error', 'msg' => 'El nombre solo puede contener letras.'];
+        }
+        if (!preg_match("/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/", $datos['apellido'])) {
+            return ['status' => 'error', 'msg' => 'El apellido solo puede contener letras.'];
+        }
 
         if ($this->model->existeCedula($datos['cedula'])) {
             $paciente = $this->model->getByCedula($datos['cedula']);
@@ -59,6 +65,12 @@ class PacienteController extends BaseController {
 
         if (strlen($datos['nombre']) > 25 || strlen($datos['apellido']) > 25) {
             return ['status' => 'error', 'msg' => 'El nombre y apellido no deben exceder los 25 caracteres cada uno.'];
+        }
+        if (!preg_match("/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/", $datos['nombre'])) {
+            return ['status' => 'error', 'msg' => 'El nombre solo puede contener letras.'];
+        }
+        if (!preg_match("/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/", $datos['apellido'])) {
+            return ['status' => 'error', 'msg' => 'El apellido solo puede contener letras.'];
         }
 
         if ($this->model->actualizar($datos, $cedula_vieja)) {

@@ -77,6 +77,7 @@ if (isset($_POST['cambiar_clave'])) {
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="../../assets/css/estilos_globales.css">
+    <script src="../../assets/js/scripts_globales.js" defer></script>
 </head>
 <body class="body-recuperar">
 
@@ -156,19 +157,6 @@ if (isset($_POST['cambiar_clave'])) {
         <a href="<?php echo BASE_URL; ?>login.php"><i class="fas fa-arrow-left"></i> Volver al Inicio de Sesión</a>
     </div>
 </div>
-
-<script>
-function togglePassword(inputId, icon) {
-    const input = document.getElementById(inputId);
-    if (input.type === "password") {
-        input.type = "text";
-        icon.classList.replace('fa-eye', 'fa-eye-slash');
-    } else {
-        input.type = "password";
-        icon.classList.replace('fa-eye-slash', 'fa-eye');
-    }
-}
-</script>
 
 </body>
 </html>
