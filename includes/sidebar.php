@@ -22,7 +22,7 @@
          <li>
             <a href="<?php echo MOD_PERSONAL; ?>personal.php">
                 <i class="fas fa-user-md"></i>
-                <span class="link_name">Personal Médico</span>
+                <span class="link_name">Personal Medico</span>
             </a>
         </li>
         <li>
@@ -38,7 +38,14 @@
             </a>
         </li>
         
-        <?php if ($_SESSION['rol'] === 'admin'): ?>
+        <li>
+            <a href="<?php echo MOD_SISTEMA; ?>perfil.php">
+                <i class="fas fa-user-circle"></i>
+                <span class="link_name">Usuario</span>
+            </a>
+        </li>
+
+        <?php if (strtolower($_SESSION['rol']) === 'admin'): ?>
         <li>
             <a href="javascript:void(0)" onclick="toggleSubmenu()">
                 <i class="fas fa-cogs"></i>
@@ -46,7 +53,7 @@
             </a>
             <ul class="submenu" id="submenu-gestion">
                 <li>
-                    <a href="<?php echo MOD_SISTEMA; ?>nuevo_usuario.php"><i class="fas fa-user-shield"></i> Registrar Usuario</a>
+                    <a href="<?php echo MOD_SISTEMA; ?>usuarios.php"><i class="fas fa-users-cog"></i> Usuarios</a>
                 </li>
                 <li>
                     <a href="<?php echo MOD_SISTEMA; ?>bitacora.php"><i class="fas fa-history"></i> Bitácora</a>
@@ -69,3 +76,17 @@
         </li>
     </ul>
 </div>
+
+<script>
+function toggleSubmenu() {
+    const submenu = document.getElementById('submenu-gestion');
+    const arrow = document.querySelector('.arrow-toggle');
+    if (submenu.style.display === 'block') {
+        submenu.style.display = 'none';
+        if(arrow) arrow.style.transform = 'rotate(0deg)';
+    } else {
+        submenu.style.display = 'block';
+        if(arrow) arrow.style.transform = 'rotate(180deg)';
+    }
+}
+</script>

@@ -2,12 +2,12 @@
 require_once '../../includes/auth.php';
 
 // Seguridad: Solo administradores pueden registrar otros usuarios
-if ($_SESSION['rol'] !== 'admin') {
+if (strtolower($_SESSION['rol'] ?? '') !== 'admin') {
     header("Location: " . BASE_URL . "login.php");
     exit();
 }
 
-$pageTitle = "Registro de Personal | SARCE";
+$pageTitle = "Usuario | SARCE";
 include '../../includes/layout_header.php';
 ?>
 <!-- SweetAlert2 -->
@@ -33,9 +33,9 @@ if (isset($_POST['registrar_personal'])) {
 ?>
 <div class="form-container">
     <h2 style="color: #002347; text-align: center; margin-bottom: 5px;">
-        <i class="fas fa-user-plus"></i> Nuevo Usuario
+        <i class="fas fa-user-circle"></i> Usuario
     </h2>
-    <p style="text-align: center; color: #888; font-size: 12px; margin-bottom: 20px;">Personal del Ambulatorio Rural II Jají</p>
+    <p style="text-align: center; color: #888; font-size: 12px; margin-bottom: 20px;">Gestión de cuenta de personal</p>
     
     <form method="POST" autocomplete="off">
         <div class="form-grid">

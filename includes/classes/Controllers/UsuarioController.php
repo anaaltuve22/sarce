@@ -67,6 +67,20 @@ class UsuarioController extends BaseController {
     }
 
     public function registrar($datos) {
+        // Mapeo de campos de seguridad
+        $mapeo = [
+            'p1' => 'pregunta_1', 'r1' => 'respuesta_1',
+            'p2' => 'pregunta_2', 'r2' => 'respuesta_2',
+            'p3' => 'pregunta_3', 'r3' => 'respuesta_3'
+        ];
+        foreach ($mapeo as $vista => $db) {
+            if (isset($datos[$vista])) {
+                $datos[$db] = $datos[$vista];
+                unset($datos[$vista]);
+            }
+        }
+        unset($datos['registrar_personal']);
+
         // Validaciones de negocio
         if (strlen($datos['nombre']) > 25 || strlen($datos['apellido']) > 25) {
             return ['status' => 'error', 'msg' => 'El nombre y apellido no deben exceder los 25 caracteres cada uno.'];
@@ -98,5 +112,69 @@ class UsuarioController extends BaseController {
             return ['status' => 'success', 'msg' => 'La cuenta de personal ha sido creada con éxito.'];
         }
         return ['status' => 'error', 'msg' => 'Error al registrar el usuario en la base de datos.'];
+    }
+
+    public function listar($busqueda = null) {
+        $busqueda = trim($busqueda ?? '');
+        if (!empty($busqueda) && method_exists($this->model, 'buscar')) {
+            return $this->model->buscar($busqueda);
+        }
+        // Usamos listar() para ser consistentes con los otros modelos del sistema
+        return method_exists($this->model, 'listar') ? $this->model->listar() : $this->model->getAll();
+    }
+
+    public function actualizar($id, $datos, $esAdmin = false) {
+        // 1. Limpieza estricta de campos que no pertenecen a la tabla usuarios
+        unset($datos['guardar'], $datos['id_usuario_rel'], $datos['actualizar_perfil']);
+
+        // 2. Procesamiento de preguntas de seguridad
+        for ($i = 1; $i <= 3; $i++) {
+            $p_key = "p$i";
+            $r_key = "r$i";
+            // Solo actualizamos la pregunta si el usuario proporcionó una respuesta
+            if (!empty($datos[$r_key])) {
+                $datos["pregunta_$i"] = $datos[$p_key];
+                $datos["respuesta_$i"] = $datos[$r_key];
+            }
+            unset($datos[$p_key], $datos[$r_key]);
+        }
+
+        if (!filter_var($datos['correo'], FILTER_VALIDATE_EMAIL)) {
+            return ['status' => 'error', 'msg' => 'Formato de correo electrónico inválido.'];
+        }
+
+        // Procesar contraseña si se envió una nueva
+        if (!empty($datos['clave'])) {
+            $datos['clave'] = password_hash($datos['clave'], PASSWORD_DEFAULT);
+        } else {
+            unset($datos['clave']);
+        }
+
+        // Seguridad: Si no es admin, impedimos que se modifique el rol o el nombre de usuario
+        if (!$esAdmin) {
+            unset($datos['rol']);
+            unset($datos['usuario']);
+        }
+
+        // 3. LLAMADA CRÍTICA: Se pasan (datos, id) para evitar error 500 en el modelo
+        if ($this->model->actualizar($datos, $id)) {
+            $this->registrarBitacora("Usuario actualizado (ID: $id)");
+            return ['status' => 'success', 'msg' => 'Los cambios han sido guardados correctamente.'];
+        }
+        return ['status' => 'error', 'msg' => 'No se realizaron cambios o error en la base de datos.'];
+    }
+
+    public function cambiarEstado($id, $estado) {
+        if ($this->model->setEstado($id, $estado)) {
+            $accion = $estado ? "habilitado" : "inhabilitado";
+            $this->registrarBitacora("Usuario $accion (ID: $id)");
+            return ['status' => 'success', 'msg' => "Usuario $accion correctamente."];
+        }
+        return ['status' => 'error', 'msg' => 'Error al cambiar el estado.'];
+    }
+
+    public function reiniciarClave($id, $nuevaClave) {
+        $hash = password_hash($nuevaClave, PASSWORD_DEFAULT);
+        return $this->model->updatePassword($id, $hash);
     }
 }
