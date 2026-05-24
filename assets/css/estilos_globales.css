@@ -1,0 +1,689 @@
+/* --- Estilos Globales - SARCE --- */
+
+:root {
+    --primary-color: #002347;
+    --secondary-color: #28a745;
+    --accent-color: #007bff;
+    --danger-color: #dc3545;
+    --warning-color: #f6ad55;
+    --text-main: #4a5568;
+    --bg-light: #f8fafc;
+    --border-color: #e2e8f0;
+    --shadow: 0 5px 20px rgba(0,0,0,0.05);
+}
+
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+}
+
+body { 
+    font-family: 'Poppins', sans-serif; 
+    color: #1a1a1a; 
+    background-color: #00152b; 
+    overflow-x: hidden; 
+}
+
+/* Botón para abrir/cerrar menú en móviles */
+.menu-toggle {
+    display: none;
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    z-index: 1200;
+    background: #28a745;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+/* Variantes de Fondo para Módulos */
+.bg-gradient-blue { background: linear-gradient(135deg, #f8fafc 0%, #dbeafe 100%) !important; background-attachment: fixed !important; }
+.bg-gradient-list { background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%) !important; background-attachment: fixed !important; }
+
+/* --- ESTRUCTURA PRINCIPAL Y SIDEBAR --- */
+.sidebar {
+    width: 260px;
+    background-color: #00152b;
+    color: white;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    z-index: 1100;
+    padding-top: 20px;
+    box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease, visibility 0.3s;
+}
+
+.sidebar img {
+    width: 70px !important;
+    max-width: 70px !important;
+    height: auto !important;
+    display: block;
+    margin: 10px auto 25px auto;
+}
+
+.logo-details {
+    text-align: center;
+    width: 100%;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar a {
+    color: white !important;
+    text-decoration: none;
+    padding: 12px 25px;
+    display: flex;
+    align-items: center;
+    transition: 0.3s;
+    font-size: 14px;
+    width: 100%;
+}
+
+.sidebar a i {
+    margin-right: 12px;
+    width: 20px;
+    text-align: center;
+    font-size: 1.1rem;
+    color: #28a745 !important;
+}
+
+.sidebar a:hover {
+    background-color: #003366;
+}
+
+.submenu {
+    display: none;
+    background: #000d1a;
+    list-style: none;
+    padding-left: 15px;
+}
+
+.main-content {
+    margin-left: 260px; 
+    padding: 25px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    background-color: #f0f2f5;
+    transition: margin-left 0.3s ease;
+}
+
+/* Contenedor de tabla con scroll horizontal */
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* --- COMPONENTES REUTILIZABLES --- */
+.card-sarce {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    padding: 25px;
+    margin-bottom: 20px;
+}
+
+.btn-container-sarce {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.btn-sarce {
+    padding: 12px 25px;
+    border-radius: 10px;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: 0.3s;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    color: white !important;
+}
+
+.btn-sarce-success { background: #28a745; color: white; }
+.btn-sarce-primary { background: #002347; color: white; }
+.btn-sarce-secondary { background: #6c757d; color: white; }
+
+.btn-sarce:hover { transform: translateY(-2px); opacity: 0.9; }
+
+/* --- RESPONSIVE --- */
+@media (max-width: 768px) {
+    .menu-toggle {
+        display: block; /* Visible solo en móviles */
+    }
+
+    .sidebar {
+        transform: translateX(-100%);
+        visibility: hidden;
+    }
+    
+    .sidebar.active {
+        transform: translateX(0);
+        visibility: visible;
+    }
+
+    .main-content {
+        margin-left: 0;
+        padding: 15px;
+    }
+
+    .btn-container-sarce {
+        flex-direction: column;
+    }
+
+    .btn-sarce {
+        width: 100%;
+        justify-content: center;
+    }
+
+    /* Ajustes de Grids para Móvil */
+    .form-grid, .grid-stats, .patient-badge, .datos-paciente-historial, .info-grid, .seccion-sellos {
+        grid-template-columns: 1fr !important;
+        gap: 15px !important;
+    }
+
+    .vitals-grid {
+        grid-template-columns: repeat(4, 1fr) !important; /* Todos alineados en una sola fila */
+    }
+
+    .full-width {
+        grid-column: span 1 !important;
+    }
+
+    /* Ajustes de contenedores */
+    .form-container, .contenedor-registro, .box, .card-atencion, .contenedor, .welcome-box {
+        padding: 20px !important;
+        margin: 10px auto !important;
+    }
+
+    .quick-stats {
+        grid-template-columns: 1fr !important;
+    }
+}
+
+/* Footer del Panel */
+.footer-sarce-principal {
+    margin-top: auto; 
+    background-color: #00152b; 
+    color: #ffffff;
+    padding: 15px 20px;
+    margin-left: -25px; 
+    margin-right: -25px;
+    margin-bottom: -25px;
+    text-align: center;
+}
+
+/* Variante para páginas que no requieren borde superior en el footer */
+.footer-no-border {
+    border-top: none !important;
+}
+
+.footer-info p { margin: 2px 0; font-size: 12px; }
+
+@media print {
+    .no-print, .sidebar, .btn-sarce, .btn-filtro, .btn-exportar, .btn-volver, .btn-area, .controles-reporte { display: none !important; }
+    body { background: white !important; padding: 0 !important; }
+    .main-content { margin-left: 0 !important; padding: 0 !important; min-height: auto !important; } /* Asegurar que no haya altura mínima */
+    .ticket-card {
+        margin: 20px auto !important;
+        box-shadow: none !important;
+        border: 1px solid #eee !important;
+        border-top: 6px solid #00152b !important;
+        width: 100% !important;
+        max-width: 650px !important;
+        page-break-inside: avoid; /* Evita que la tarjeta se divida entre páginas */
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+    .ticket-header {
+        background: transparent !important;
+        color: #000 !important;
+        padding: 10px !important;
+        border-bottom: 2px solid #eee !important;
+    }
+    .ticket-header h3 { font-size: 16px !important; color: #000 !important; font-weight: bold !important; } 
+    .ticket-content {
+        padding: 15px 25px !important;
+    }
+    .info-grid { margin-bottom: 15px !important; }
+    .info-item b { font-size: 10px !important; } 
+    .info-item span { font-size: 14px !important; } 
+    .vitals-grid, .fila-vitales {
+        display: grid !important;
+        grid-template-columns: repeat(4, 1fr) !important;
+        gap: 0 !important;
+        margin-top: 10px !important;
+        width: 100% !important;
+        background: #f8fafc !important;
+        -webkit-print-color-adjust: exact;
+    }
+    .vitals-grid .info-item { text-align: center !important; }
+    .detail-box {
+        margin-top: 10px !important;
+        page-break-inside: avoid;
+    }
+    .detail-box h4 { font-size: 13px !important; margin-bottom: 5px !important; } 
+    .detail-box p { 
+        font-size: 13px !important; 
+        padding: 10px !important; 
+        background: #f8fafc !important; 
+        -webkit-print-color-adjust: exact;
+    } 
+    .seccion-sellos { 
+        display: grid !important; 
+        grid-template-columns: 1fr 1fr !important; 
+        margin-top: 20px !important; 
+        padding: 10px 0 !important; 
+        page-break-inside: avoid; 
+        gap: 20px !important; 
+    }
+    .cuadro-sello { height: 80px !important; font-size: 11px !important; border: 2px dashed #cbd5e0 !important; }
+    .etiqueta-sello { font-size: 11px !important; margin-top: 5px !important; }
+    @page { size: auto; margin: 1cm; }
+}
+
+@media (max-width: 768px) {
+    .main-content { margin-left: 0; padding: 20px; }
+    .sidebar { transform: translateX(-100%); visibility: hidden; }
+}
+
+/* Landing Wrapper */
+.landing-wrapper {
+    position: relative;
+    width: 100%;
+    min-height: 100vh; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 80px 20px;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+/* Navegación */
+.nav-container {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    z-index: 10;
+}
+
+.btn-nav {
+    text-decoration: none;
+    padding: 12px 25px;
+    border-radius: 50px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    transition: all 0.3s ease;
+    color: white !important;
+}
+
+.btn-login { 
+    background-color: #28a745; 
+    color: white; 
+    border: none;
+    cursor: pointer;
+    transition: 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+.btn-login:hover { background-color: #218838; transform: translateY(-2px); }
+
+/* Estilo específico para el botón dentro del formulario de Login */
+.login-card .btn-login {
+    width: 100%; 
+    padding: 15px; 
+    border-radius: 12px; 
+    font-size: 1.1rem;
+    font-weight: bold;
+    box-shadow: 0 4px 10px rgba(40, 167, 69, 0.3);
+}
+
+.btn-panel { background-color: #002347; color: white; border: 2px solid #002347; }
+.btn-panel:hover { background-color: #003366; transform: translateY(-2px); }
+
+/* Textos Hero */
+.hero-text { text-align: center; margin-bottom: 50px; }
+.hero-text h1 { 
+    color: white; 
+    font-size: clamp(2rem, 8vw, 3.5rem); 
+    margin: 0; 
+    text-shadow: 2px 4px 15px rgba(0,0,0,0.6); 
+    font-weight: 700; 
+    line-height: 1.1; 
+}
+.hero-text p { 
+    color: #f2f7f3; 
+    font-size: 1.1rem; 
+    letter-spacing: 4px; 
+    font-weight: 400; 
+    margin-top: 10px; 
+}
+
+/* Tarjetas */
+.cards-container {
+    display: flex;
+    gap: 30px;
+    max-width: 1100px;
+    width: 100%;
+    flex-wrap: wrap; 
+    justify-content: center;
+}
+
+.info-card {
+    flex: 1;
+    min-width: 300px;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+    transition: transform 0.3s ease;
+}
+
+.info-card:hover { transform: translateY(-10px); }
+.info-card h2 { color: #002347; margin-bottom: 15px; display: flex; align-items: center; gap: 12px; }
+.info-card p { color: #4a5568; line-height: 1.7; font-size: 1rem; text-align: justify; }
+
+/* Footer */
+footer {
+    background-color: #002347;
+    color: white;
+    padding: 40px 20px;
+    text-align: center;
+    font-size: 14px;
+    border-top: 3px solid #002347;
+}
+.footer-info p { margin: 8px 0; color: #cbd5e0; }
+.footer-info i { color: #28a745; margin-right: 8px; }
+.copyright { margin-top: 20px; opacity: 0.7; font-size: 12px; }
+
+/* --- COMPONENTES ESPECÍFICOS DE MÓDULOS --- */
+
+/* Contenedores de Módulos */
+.contenedor { 
+    background: white; 
+    padding: 30px; 
+    border-radius: 15px; 
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08); 
+    max-width: 1000px; 
+    margin: auto; 
+}
+
+/* Formularios y Grupos */
+.form-group { margin-bottom: 20px; }
+.form-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
+.full-width { grid-column: span 2; }
+.form-container, .contenedor-registro, .box { background: white; padding: 35px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); max-width: 600px; margin: 30px auto; }
+
+.form-container label, .contenedor-registro label, .box label { display: block; font-size: 13px; color: #666; margin-top: 10px; font-weight: 600; }
+.form-container input, .form-container select, .form-container textarea,
+.contenedor-registro input, .contenedor-registro select, .contenedor-registro textarea,
+.box input, .box select, .box textarea { width: 100%; padding: 12px; border: 2px solid #f0f2f5; border-radius: 10px; box-sizing: border-box; outline: none; transition: 0.3s; font-family: inherit; margin-top: 5px; }
+
+/* Formulario Consulta Manual */
+.form-consulta-manual {
+    background: white; 
+    padding: 25px; 
+    border-radius: 10px; 
+    max-width: 500px; 
+    margin: 20px auto; 
+    box-shadow: var(--shadow); 
+}
+.form-consulta-manual input, .form-consulta-manual textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+.form-consulta-manual h2 { color: #002347; margin-bottom: 20px; text-align: center; }
+.fila-vitales input {
+    margin: 10px 0;
+    flex: 1;
+    text-align: center;
+}
+
+/* Tablas de Datos */
+table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+th { text-align: left; color: #718096; font-size: 12px; text-transform: uppercase; padding: 10px; border-bottom: 2px solid #edf2f7; }
+th { background: var(--primary-color); color: white; } /* Encabezado estándar */
+th.header-verde { background: #28a745; color: white; }
+td { padding: 12px; border-bottom: 1px solid #edf2f7; color: #2d3748; font-weight: 500; }
+tr:nth-child(even) { background-color: #f8f9fa; }
+tr:hover { background-color: #f1f5f9; }
+
+/* Dashboard y Stats */
+.header-tablero { background: #002347; color: white; padding: 20px; border-radius: 15px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+.container { max-width: 1100px; margin: 0 auto; background: transparent; }
+.card-grafico, .tabla-frecuencia { 
+    background: white; 
+    padding: 25px; 
+    border-radius: 15px; 
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05); 
+}
+.card-atencion { 
+    background: white; 
+    max-width: 800px; 
+    margin: 30px auto; 
+    border-radius: 15px; 
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05); 
+    padding: 30px;
+}
+.card-atencion h2 { color: #002347; text-align: center; margin-bottom: 25px; }
+.form-content { width: 100%; }
+.btn-filtro { color: white; text-decoration: none; padding: 6px 15px; border-radius: 6px; font-size: 13px; transition: 0.3s; }
+.btn-filtro.active { background: #28a745; font-weight: bold; }
+.grid-stats { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 20px; }
+.badge-cantidad { background: #28a745; color: white; padding: 4px 12px; border-radius: 20px; font-size: 12px; }
+
+.patient-badge { background: #f8f9fa; border: 1px solid #dee2e6; padding: 20px; border-radius: 10px; display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 25px; position: relative; } 
+.patient-badge::before { content: "DATOS DEL PACIENTE"; position: absolute; top: -10px; left: 20px; background: #28a745; color: white; padding: 2px 10px; font-size: 10px; border-radius: 5px; font-weight: bold; } 
+.data-item b { color: #002347; display: block; font-size: 11px; text-transform: uppercase; } 
+.data-item span { font-size: 15px; color: #333; font-weight: 500; } 
+
+.vitals-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 15px; }
+.chip-medicamento { background: #28a745; color: white; padding: 6px 15px; border-radius: 20px; display: flex; align-items: center; gap: 10px; font-size: 14px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); margin: 5px; }
+
+.badge-fecha { background: #e9ecef; padding: 4px 8px; border-radius: 4px; font-size: 12px; font-weight: bold; }
+.fila-triple { display: flex; gap: 10px; }
+.form-consulta { background: white; padding: 25px; border-radius: 10px; max-width: 500px; margin: auto; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+
+.btn-exportar { 
+    background: #e53e3e; 
+    color: white; 
+    border: none; 
+    padding: 10px 18px; 
+    border-radius: 8px; 
+    cursor: pointer; 
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: 0.3s;
+}
+.btn-exportar:hover { background: #c53030; transform: translateY(-2px); }
+
+.welcome-box { background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); text-align: center; border-top: 5px solid #00152b; width: 100%; max-width: 850px; margin: 0 auto 25px auto; }
+.quick-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+.mini-card { background: #f0fff4; padding: 20px; border-radius: 10px; border: 1px solid #c6f6d5; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+.mini-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
+.mini-card h4 { font-size: 0.75rem; color: #4a5568; text-transform: uppercase; margin-bottom: 5px; font-weight: 600; }
+.mini-card h4 i { color: #28a745; margin-right: 5px; }
+.mini-card span { font-size: 1.8rem; font-weight: bold; color: #28a745; }
+
+/* Buscador y Acciones */
+.search-box-container { position: relative; margin-bottom: 25px; }
+.search-icon { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: #cbd5e0; }
+.search-box { width: 100%; padding: 12px 12px 12px 45px; border: 2px solid #edf2f7; border-radius: 10px; font-size: 14px; outline: none; transition: 0.3s; }
+.acciones-flex { display: flex; gap: 8px; justify-content: center; }
+
+/* --- CONTENEDORES Y LISTADOS --- */
+.container-tabla { background: white; padding: 30px; border-radius: 15px; box-shadow: var(--shadow); margin-bottom: 25px; }
+
+/* Botones de Acción de Listados (Pacientes y Personal) */
+.btn-original { padding: 8px 15px; border-radius: 8px; font-weight: 600; text-decoration: none; font-size: 13px; transition: 0.3s; display: inline-flex; align-items: center; gap: 5px; border: none; cursor: pointer; color: white !important; }
+.btn-atender { background-color: #28a745 !important; color: white !important; }
+.btn-editar { background-color: #6c757d !important; color: white !important; }
+.btn-historial { background-color: #17a2b8 !important; color: white !important; }
+.btn-inhabilitar { background-color: #dc3545 !important; color: white !important; }
+.btn-original:hover { transform: translateY(-2px); opacity: 0.9; }
+
+/* --- EXCEPCIONES ESPECÍFICAS --- */
+
+/* Botones de filtros en el reporte (Semana, Mes, Año) */
+.controles-reporte .btn-sarce {
+    background-color: #edf2f7;
+    color: var(--primary-color) !important; /* Regresar al color oscuro original del tema */
+    border: 1px solid #cbd5e0;
+}
+
+/* El botón de Imprimir dentro del reporte debe conservar la letra blanca por su fondo verde */
+.controles-reporte .btn-sarce[style*="background-color: #28a745"] {
+    color: white !important;
+    border: none;
+}
+
+/* Módulo Medicamentos */
+.header-modulo-meds { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; background: white; padding: 20px; border-radius: 15px; box-shadow: var(--shadow); }
+
+/* Formularios y Login */
+.login-card { background: white; padding: 30px; border-radius: 25px; box-shadow: 0 20px 40px rgba(0,0,0,0.4); width: 90%; max-width: 320px; text-align: center; box-sizing: border-box; }
+.input-group { margin-bottom: 15px; }
+.input-group input { width: 100%; padding: 12px; border-radius: 10px; border: 2px solid #edf2f7; background: #f7fafc; box-sizing: border-box; font-size: 0.95rem; }
+.error-msg { color: #e53e3e; font-size: 0.8rem; margin-bottom: 15px; }
+
+.input-box { margin-bottom: 15px; }
+.input-box label { display: block; font-size: 13px; color: #666; margin-bottom: 5px; font-weight: 600; }
+.input-box label i { color: #28a745; margin-right: 8px; font-size: 14px; }
+.input-box input, .input-box select, .input-box textarea { width: 100%; padding: 12px; border: 2px solid #f0f2f5; border-radius: 10px; box-sizing: border-box; outline: none; transition: 0.3s; font-family: inherit; }
+.input-box input:focus { border-color: #28a745; }
+
+/* Historial Médico */
+.ficha { background: white; padding: 30px; border-radius: 15px; box-shadow: var(--shadow); max-width: 900px; margin: auto; }
+.encabezado-ficha { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #eee; padding-bottom: 15px; margin-bottom: 20px; }
+.datos-paciente-historial { background: #f8fafc; padding: 20px; border-radius: 10px; margin-bottom: 30px; border: 1px solid #e2e8f0; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.card-consulta { background:white; margin-bottom:20px; padding:20px; border-radius:12px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); border: 1px solid #eee; }
+.card-header-consulta { display:flex; justify-content: space-between; border-bottom:1px solid #eee; padding-bottom:10px; margin-bottom:10px; flex-wrap: wrap; gap: 10px; }
+
+
+/* Tickets e Impresión */
+.btn-area { margin-top: 30px; display: flex; justify-content: center; gap: 20px; }
+.btn-ticket { padding: 15px 30px; border-radius: 12px; text-decoration: none; font-weight: bold; font-size: 15px; cursor: pointer; border: none; display: flex; align-items: center; gap: 10px; color: white; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+.ticket-card { background: white; width: 100%; max-width: 650px; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); overflow: hidden; border-top: 6px solid #00152b; margin: 20px auto; }
+.header-azul { background: #002347; color: white; padding: 20px; text-align: center; }
+.ticket-header { background: #002347; color: #000; padding: 20px; text-align: center; }
+.ticket-header h3 { margin: 0; color: #000; text-transform: uppercase; font-size: 18px; font-weight: bold; }
+.ticket-content { padding: 30px; }
+.ticket-footer { text-align: center; padding: 15px; background: #f8fafc; font-size: 10px; color: #718096; border-top: 1px dashed #cbd5e0; }
+.btn-print { background: #28a745 !important; }
+.btn-back-ticket { background: #002347 !important; }
+.info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px; padding-left: 15px; }
+.info-item b { display: block; color: #000; font-size: 10px; text-transform: uppercase; }
+.info-item span { font-size: 14px; font-weight: 600; }
+.detail-box { margin-top: 15px; }
+.detail-box h4 { margin: 0 0 5px 0; color: #000; font-size: 13px; display: flex; align-items: center; gap: 8px; }
+.detail-box p { margin: 0; background: #f8fafc; padding: 10px; border-radius: 8px; border: 1px solid #edf2f7; font-size: 13px; line-height: 1.4; }
+.seccion-sellos { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 40px; padding: 20px 0; text-align: center; }
+.cuadro-sello { border: 2px dashed #cbd5e0; height: 120px; display: flex; align-items: center; justify-content: center; border-radius: 10px; color: #cbd5e0; font-size: 11px; font-weight: bold; text-transform: uppercase; position: relative; }
+.etiqueta-sello { margin-top: 10px; font-size: 11px; font-weight: bold; color: #4a5568; border-top: 1px solid #4a5568; padding-top: 5px; }
+
+.card-procesando { background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); text-align: center; }
+
+/* Reportes EPI-10 */
+.reporte-papel { background: white; padding: 20px 40px; border-radius: 4px; box-shadow: 0 0 10px rgba(0,0,0,0.1); margin: 0 auto 20px auto; min-height: 21cm; max-width: 1100px; border-top: 6px solid #00152b; }
+.reporte-papel h3 { text-decoration: underline; color: #28a745; }
+.header-reporte { display: flex; align-items: center; justify-content: space-between; border-bottom: 3px double #002347; padding-bottom: 10px; margin-bottom: 15px; }
+.header-text h1 { margin: 0; font-size: 16px; color: #000; font-weight: bold; }
+.info-oficial { display: grid; grid-template-columns: repeat(3, 1fr); font-size: 11px; margin-bottom: 10px; font-weight: bold; }
+
+@media print { .reporte-print { @page { size: landscape; margin: 0.5cm; } } }
+
+/* Loaders */
+.loader { border: 5px solid #f3f3f3; border-top: 5px solid #28a745; border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin: 0 auto 15px; }
+@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+/* Contenedor para el botón de ver contraseña */
+.password-wrapper {
+    position: relative;
+}
+.password-wrapper input {
+    padding-right: 45px !important; /* Espacio para que el texto no choque con el ojo */
+}
+.password-wrapper .toggle-password {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #718096;
+    z-index: 10;
+    transition: color 0.3s;
+}
+.password-wrapper .toggle-password:hover {
+    color: #28a745;
+}
+
+/* --- SISTEMA Y ADMINISTRACIÓN --- */
+.user-badge { background: #e1f5fe; color: #0288d1; padding: 4px 10px; border-radius: 20px; font-weight: bold; font-size: 12px; }
+.fecha-txt { color: #888; font-weight: 500; }
+
+/* Recuperación de Contraseña (Vista externa) */
+.body-recuperar {
+    margin: 0; padding: 0; height: 100vh;
+    display: flex; justify-content: center; align-items: center;
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('../img/fotoambulatorio.jpg');
+    background-size: cover; 
+    background-position: center;
+    background-attachment: fixed;
+}
+.recovery-card {
+    background: white; padding: 40px; border-radius: 25px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+    width: 90%; max-width: 400px; text-align: center; box-sizing: border-box;
+    border-top: 6px solid #002347;
+}
+.recovery-card i.main-icon { font-size: 50px; color: #28a745; margin-bottom: 20px; }
+.recovery-card h2 { color: #002347; margin: 0; font-size: 1.5rem; }
+.recovery-card p.subtitle { color: #718096; margin-bottom: 25px; font-size: 0.9rem; line-height: 1.4; }
+.btn-recuperar {
+    width: 100%; padding: 15px; background: #28a745; color: white; 
+    border: none; border-radius: 12px; font-size: 1rem;
+    font-weight: bold; cursor: pointer; transition: 0.3s; 
+    box-shadow: 0 4px 10px rgba(40, 167, 69, 0.3);
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    text-transform: uppercase;
+}
+.btn-recuperar:hover { background: #218838; transform: translateY(-2px); }
+.msg { font-size: 0.85rem; margin-bottom: 20px; padding: 10px; border-radius: 8px; }
+.msg-error { background: #fff5f5; color: #c53030; border: 1px solid #feb2b2; }
+.msg-exito { background: #f0fff4; color: #276749; border: 1px solid #9ae6b4; }
+.links { margin-top: 25px; border-top: 1px solid #edf2f7; padding-top: 20px; }
+.links a { text-decoration: none; color: #002347; font-size: 0.9rem; font-weight: 600; transition: 0.3s; }
+.links a:hover { color: #28a745; }
