@@ -41,7 +41,7 @@
         <li>
             <a href="<?php echo MOD_SISTEMA; ?>perfil.php">
                 <i class="fas fa-user-circle"></i>
-                <span class="link_name">Usuario</span>
+                <span class="link_name">Perfil de Usuario</span>
             </a>
         </li>
 

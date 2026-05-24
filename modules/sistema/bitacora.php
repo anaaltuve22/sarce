@@ -28,6 +28,12 @@ include '../../includes/layout_header.php';
         
         <p style="color: #666; margin-bottom: 25px;">Registro detallado de acciones realizadas por el personal en el sistema <strong>SARCE</strong>.</p>
         
+        <div class="search-box-container" style="position: relative; margin-bottom: 20px;">
+            <i class="fas fa-search search-icon" style="position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: #cbd5e0;"></i>
+            <input type="text" id="buscador" class="search-box" placeholder="Buscar por usuario o acción..." 
+                   style="width: 100%; padding: 12px 12px 12px 45px; border: 2px solid #edf2f7; border-radius: 10px; font-size: 14px; outline: none;">
+        </div>
+
         <table>
             <thead>
                 <tr>
@@ -36,7 +42,7 @@ include '../../includes/layout_header.php';
                     <th><i class="fas fa-tasks"></i> Acción Realizada</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="cuerpoTabla">
                 <?php while($row = mysqli_fetch_assoc($resultado)) { ?>
                 <tr>
                     <td class="fecha-txt">

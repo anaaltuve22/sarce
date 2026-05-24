@@ -8,6 +8,15 @@ class MedicamentoModel extends BaseModel {
         return mysqli_query($this->db, $sql);
     }
 
+    public function buscar($valor) {
+        $valor = "%$valor%";
+        $sql = "SELECT * FROM medicamentos WHERE (nombre LIKE ? OR descripcion LIKE ?) AND estado = 1 ORDER BY nombre ASC";
+        $stmt = mysqli_prepare($this->db, $sql);
+        mysqli_stmt_bind_param($stmt, "ss", $valor, $valor);
+        mysqli_stmt_execute($stmt);
+        return mysqli_stmt_get_result($stmt);
+    }
+
     public function getById($id) {
         $stmt = mysqli_prepare($this->db, "SELECT * FROM medicamentos WHERE id = ?");
         mysqli_stmt_bind_param($stmt, "i", $id);

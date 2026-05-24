@@ -7,14 +7,15 @@ include '../../includes/layout_header.php';
 <div class="header-modulo-meds">
     <h2><i class="fas fa-pills"></i> Lista de Medicamentos</h2>
     <a href="<?php echo MOD_MEDICAMENTOS; ?>registrar_medicamento.php" class="btn-original btn-atender">
-        <i class="fas fa-plus"></i> AGREGAR MEDICAMENTO
+        <i class="fas fa-plus"></i> REGISTRAR MEDICAMENTO
     </a>
 </div>
 
 <div class="container-tabla">
-    <div style="position: relative;">
-        <i class="fas fa-search" style="position: absolute; left: 15px; top: 15px; color: #cbd5e0;"></i>
-        <input type="text" id="buscador" class="search-box" placeholder="Buscar medicamento...">
+    <div class="search-box-container" style="position: relative; margin-bottom: 20px;">
+        <i class="fas fa-search search-icon" style="position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: #cbd5e0;"></i>
+        <input type="text" id="buscador" class="search-box" placeholder="Buscar medicamento..." 
+               style="width: 100%; padding: 12px 12px 12px 45px; border: 2px solid #edf2f7; border-radius: 10px; font-size: 14px; outline: none;">
     </div>
 
     <table>

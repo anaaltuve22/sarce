@@ -13,6 +13,15 @@ class PacienteModel extends BaseModel {
         return $paciente;
     }
 
+    public function buscar($valor) {
+        $valor = "%$valor%";
+        $sql = "SELECT * FROM pacientes WHERE (nombre LIKE ? OR apellido LIKE ? OR cedula LIKE ?) AND estado = 1 ORDER BY apellido ASC";
+        $stmt = mysqli_prepare($this->db, $sql);
+        mysqli_stmt_bind_param($stmt, "sss", $valor, $valor, $valor);
+        mysqli_stmt_execute($stmt);
+        return mysqli_stmt_get_result($stmt);
+    }
+
     public function listarActivos() {
         $sql = "SELECT * FROM pacientes WHERE estado = 1 ORDER BY apellido ASC, nombre ASC";
         return mysqli_query($this->db, $sql);

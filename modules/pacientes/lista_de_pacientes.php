@@ -3,29 +3,23 @@
 require_once '../../includes/auth.php';
 
 $pacienteCtrl = new PacienteController($conexion);
-$busqueda = isset($_GET['buscar']) ? $_GET['buscar'] : null;
-$resultado = $pacienteCtrl->listar($busqueda);
+$resultado = $pacienteCtrl->listar();
 
 $pageTitle = "Listado de Pacientes | SARCE";
 include '../../includes/layout_header.php';
 ?>
-    <!-- SweetAlert2 -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <div class="header-tablero">
+        <h2><i class="fas fa-users"></i> Listado General de Pacientes</h2>
+        <a href="<?php echo MOD_PACIENTES; ?>registrar_paciente.php" class="btn-original btn-atender">
+            <i class="fas fa-plus"></i> REGISTRAR PACIENTE
+        </a>
+    </div>
 
     <div class="container-tabla">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
-            <h2 style="margin: 0;"><i class="fas fa-users"></i> Listado General de Pacientes</h2>
-            <a href="<?php echo MOD_PACIENTES; ?>registrar_paciente.php" class="btn-original btn-atender" style="padding: 12px 20px; font-size: 14px; text-decoration: none;">
-                <i class="fas fa-plus"></i> REGISTRAR NUEVO PACIENTE
-            </a>
-        </div>
-
-        <form action="" method="GET" class="search-box-container">
+        <div class="search-box-container">
             <i class="fas fa-search search-icon"></i>
-            <input type="text" name="buscar" id="buscador" class="search-box" 
-                   placeholder="Escriba cédula, nombre o apellido para filtrar..."
-                   value="<?php echo htmlspecialchars($busqueda ?? ''); ?>">
-        </form>
+            <input type="text" id="buscador" class="search-box" placeholder="Escriba cédula, nombre o apellido para filtrar...">
+        </div>
 
         <div class="table-responsive">
             <table>
@@ -94,38 +88,5 @@ include '../../includes/layout_header.php';
         </div>
         <p>&copy; <?php echo date("Y"); ?> SARCE - Sistema de Control de Registro.</p>
     </footer>
-
-<script>
-/**
- * Confirmación para inhabilitar paciente
- */
-function confirmarInhabilitacion(cedula) {
-    Swal.fire({
-        title: '¿Está seguro?',
-        text: "El paciente dejará de aparecer en las listas de atención.",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#dc3545',
-        cancelButtonColor: '#6c757d',
-        confirmButtonText: 'Sí, inhabilitar',
-        cancelButtonText: 'Cancelar'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            window.location.href = 'inhabilitar.php?cedula=' + cedula;
-        }
-    });
-}
-
-/**
- * Filtro visual rápido (opcional, mejora la experiencia al escribir)
- */
-document.getElementById('buscador').addEventListener('keyup', function() {
-    let filtro = this.value.toLowerCase();
-    let filas = document.querySelectorAll("#cuerpoTabla tr");
-    filas.forEach(fila => {
-        fila.style.display = fila.textContent.toLowerCase().includes(filtro) ? "" : "none";
-    });
-});
-</script>
 
 <?php include '../../includes/layout_footer.php'; ?>

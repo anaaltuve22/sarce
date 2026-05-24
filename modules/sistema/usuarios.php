@@ -4,13 +4,26 @@ if (strtolower($_SESSION['rol'] ?? '') !== 'admin') { header("Location: " . BASE
 
 $userCtrl = new UsuarioController($conexion);
 
+// Manejo de habilitar/inhabilitar con SweetAlert
 if (isset($_GET['id']) && isset($_GET['accion'])) {
-    $userCtrl->cambiarEstado($_GET['id'], ($_GET['accion'] === 'habilitar' ? 1 : 0));
-    header("Location: usuarios.php"); exit();
+    $resultado = $userCtrl->cambiarEstado($_GET['id'], ($_GET['accion'] === 'habilitar' ? 1 : 0));
+    echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
+    echo "<script>
+        window.onload = function() {
+            Swal.fire({
+                icon: '{$resultado['status']}',
+                title: '" . ($resultado['status'] == 'success' ? '¡Éxito!' : 'Error') . "',
+                text: '{$resultado['msg']}',
+                confirmButtonColor: '#28a745'
+            }).then(() => { window.location='usuarios.php'; });
+        };
+    </script>";
+    exit();
 }
 
 if (isset($_GET['id']) && isset($_GET['reset'])) {
     $userCtrl->reiniciarClave($_GET['id'], 'sarce1234');
+    echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
     echo "<script>
         Swal.fire({
             icon: 'success',
@@ -24,19 +37,17 @@ if (isset($_GET['id']) && isset($_GET['reset'])) {
 
 $pageTitle = "Gestión de Usuarios | SARCE";
 include '../../includes/layout_header.php';
-$usuarios = $userCtrl->listar($_GET['buscar'] ?? null);
+$usuarios = $userCtrl->listar();
 ?>
 <div class="contenedor">
     <div class="header-tablero">
         <h2><i class="fas fa-users-cog"></i> Gestión de Usuarios</h2>
-        <a href="nuevo_usuario.php" class="btn-sarce btn-sarce-success"><i class="fas fa-plus"></i> NUEVO</a>
+        <a href="nuevo_usuario.php" class="btn-sarce btn-sarce-success"><i class="fas fa-plus"></i> REGISTRAR</a>
     </div>
 
     <div class="search-box-container">
         <i class="fas fa-search search-icon"></i>
-        <form method="GET">
-            <input type="text" name="buscar" class="search-box" placeholder="Buscar por nombre, apellido o usuario..." value="<?php echo htmlspecialchars($_GET['buscar'] ?? ''); ?>">
-        </form>
+        <input type="text" id="buscador" class="search-box" placeholder="Buscar por nombre, apellido o usuario...">
     </div>
 
     <div class="table-responsive">
@@ -50,7 +61,7 @@ $usuarios = $userCtrl->listar($_GET['buscar'] ?? null);
                     <th style="text-align: center;">Acciones</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="cuerpoTabla">
                 <?php if ($usuarios): while($row = mysqli_fetch_assoc($usuarios)) { ?>
                 <tr>
                     <td><span class="user-badge"><?php echo $row['usuario']; ?></span></td>
@@ -58,12 +69,14 @@ $usuarios = $userCtrl->listar($_GET['buscar'] ?? null);
                     <td><?php echo ucfirst($row['rol']); ?></td>
                     <td><span class="badge-cantidad" style="<?php echo !$row['estado'] ? 'background:#dc3545;' : ''; ?>"><?php echo $row['estado'] ? 'Activo' : 'Inactivo'; ?></span></td>
                     <td class="acciones-flex">
-                        <a href="perfil.php?id=<?php echo $row['id']; ?>" class="btn-original btn-editar" title="Editar"><i class="fas fa-edit"></i></a>
+                        <a href="perfil.php?id=<?php echo $row['id']; ?>" class="btn-original btn-editar" title="Editar">
+                            <i class="fas fa-edit"></i> EDITAR
+                        </a>
                         <a href="usuarios.php?id=<?php echo $row['id']; ?>&accion=<?php echo $row['estado'] ? 'inhabilitar' : 'habilitar'; ?>" class="btn-original <?php echo $row['estado'] ? 'btn-inhabilitar' : 'btn-atender'; ?>" title="<?php echo $row['estado'] ? 'Inhabilitar' : 'Habilitar'; ?>">
-                            <i class="fas <?php echo $row['estado'] ? 'fa-user-slash' : 'fa-user-check'; ?>"></i>
+                            <i class="fas <?php echo $row['estado'] ? 'fa-user-slash' : 'fa-user-check'; ?> text-white"></i> <?php echo $row['estado'] ? 'INHABILITAR' : 'HABILITAR'; ?>
                         </a>
                         <a href="javascript:void(0)" onclick="confirmarReset(<?php echo $row['id']; ?>)" class="btn-original btn-historial" title="Reiniciar Contraseña">
-                            <i class="fas fa-key"></i>
+                            <i class="fas fa-key"></i> REINICIAR
                         </a>
                     </td>
                 </tr>
@@ -74,17 +87,15 @@ $usuarios = $userCtrl->listar($_GET['buscar'] ?? null);
         </table>
     </div>
 </div>
-<script>
-function confirmarReset(id) {
-    Swal.fire({
-        title: '¿Reiniciar contraseña?',
-        text: 'La clave se restablecerá a la genérica: sarce1234',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#28a745',
-        cancelButtonColor: '#dc3545',
-        confirmButtonText: 'Sí, reiniciar'
-    }).then((result) => { if (result.isConfirmed) { window.location.href = 'usuarios.php?id=' + id + '&reset=1'; } });
-}
-</script>
+<footer class="footer-sarce-principal">
+    <div class="footer-info">
+        <p>
+            <i class="fas fa-map-marker-alt"></i> <strong>Dirección:</strong> Jají, Municipio Campo Elías, Estado Mérida.
+        </p>
+        <p>
+            <i class="fas fa-phone"></i> <strong>Teléfono de Atención:</strong> 04161537743
+        </p>
+    </div>
+    <p>&copy; <?php echo date("Y"); ?> SARCE - Sistema de Control de Registro.</p>
+</footer>
 <?php include '../../includes/layout_footer.php'; ?>

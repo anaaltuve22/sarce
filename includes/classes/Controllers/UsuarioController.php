@@ -28,8 +28,8 @@ class UsuarioController extends BaseController {
         return null;
     }
 
-    public function obtenerBitacora() {
-        return $this->model->getBitacora();
+    public function obtenerBitacora($busqueda = null) {
+        return $this->model->getBitacora($busqueda);
     }
 
     public function iniciarRecuperacion($identificador) {
@@ -116,11 +116,10 @@ class UsuarioController extends BaseController {
 
     public function listar($busqueda = null) {
         $busqueda = trim($busqueda ?? '');
-        if (!empty($busqueda) && method_exists($this->model, 'buscar')) {
+        if (!empty($busqueda)) {
             return $this->model->buscar($busqueda);
         }
-        // Usamos listar() para ser consistentes con los otros modelos del sistema
-        return method_exists($this->model, 'listar') ? $this->model->listar() : $this->model->getAll();
+        return $this->model->getAll();
     }
 
     public function actualizar($id, $datos, $esAdmin = false) {

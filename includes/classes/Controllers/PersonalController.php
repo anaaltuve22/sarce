@@ -9,7 +9,11 @@ class PersonalController extends BaseController {
         $this->model = new PersonalModel($conexion);
     }
 
-    public function listar() {
+    public function listar($busqueda = null) {
+        $busqueda = trim($busqueda ?? '');
+        if (!empty($busqueda)) {
+            return $this->model->buscar($busqueda);
+        }
         return $this->model->listarActivos();
     }
 

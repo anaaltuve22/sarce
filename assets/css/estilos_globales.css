@@ -6,7 +6,7 @@
     --accent-color: #007bff;
     --danger-color: #dc3545;
     --warning-color: #f6ad55;
-    --text-main: #4a5568;
+    --text-main: #000000;
     --bg-light: #f8fafc;
     --border-color: #e2e8f0;
     --shadow: 0 5px 20px rgba(0,0,0,0.05);
@@ -20,7 +20,7 @@
 
 body { 
     font-family: 'Poppins', sans-serif; 
-    color: #1a1a1a; 
+    color: #000000; 
     background-color: #00152b; 
     overflow-x: hidden; 
 }
@@ -142,6 +142,7 @@ body {
     gap: 15px;
     flex-wrap: wrap;
     justify-content: center;
+    margin-top: 20px;
 }
 
 .btn-sarce {
@@ -435,6 +436,16 @@ footer {
     margin: auto; 
 }
 
+.form-header { 
+    background-color: var(--primary-color); 
+    color: #ffffff !important; 
+    padding: 8px; 
+    border-radius: 10px; 
+    text-align: center; 
+    margin-bottom: 25px; 
+    box-shadow: var(--shadow);
+}
+
 /* Formularios y Grupos */
 .form-group { margin-bottom: 20px; }
 .form-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
@@ -480,7 +491,18 @@ tr:nth-child(even) { background-color: #f8f9fa; }
 tr:hover { background-color: #f1f5f9; }
 
 /* Dashboard y Stats */
-.header-tablero { background: #002347; color: white; padding: 20px; border-radius: 15px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+.header-tablero, .header-bitacora, .header-modulo-meds { 
+    background-color: var(--primary-color); 
+    color: #ffffff !important; 
+    padding: 8px 20px; 
+    border-radius: 10px; 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    margin-bottom: 25px; 
+    box-shadow: var(--shadow);
+}
+.header-tablero h2, .header-bitacora h2, .header-modulo-meds h2 { color: #ffffff !important; margin: 0; font-size: 1.2rem; }
 .container { max-width: 1100px; margin: 0 auto; background: transparent; }
 .card-grafico, .tabla-frecuencia { 
     background: white; 
@@ -571,7 +593,6 @@ tr:hover { background-color: #f1f5f9; }
 }
 
 /* Módulo Medicamentos */
-.header-modulo-meds { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; background: white; padding: 20px; border-radius: 15px; box-shadow: var(--shadow); }
 
 /* Formularios y Login */
 .login-card { background: white; padding: 30px; border-radius: 25px; box-shadow: 0 20px 40px rgba(0,0,0,0.4); width: 90%; max-width: 320px; text-align: center; box-sizing: border-box; }

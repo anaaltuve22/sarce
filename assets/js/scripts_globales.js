@@ -278,4 +278,44 @@ function toggleSubmenu() {
     }
 }
 
+/**
+ * Lógica de búsqueda en tiempo real para tablas (Usuarios, Personal, etc.)
+ */
+document.addEventListener('DOMContentLoaded', () => {
+    const buscador = document.getElementById('buscador');
+    if (buscador) {
+        buscador.addEventListener('input', function() {
+            const filtro = this.value.toLowerCase();
+            const filas = document.querySelectorAll('#cuerpoTabla tr');
+            
+            filas.forEach(fila => {
+                // Obtener todo el texto de la fila para comparar
+                const texto = fila.textContent.toLowerCase();
+                // Si coincide, se muestra; si no, se oculta
+                fila.style.display = texto.includes(filtro) ? '' : 'none';
+            });
+        });
+    }
+});
+
+/**
+ * Confirmación de reinicio de contraseña con SweetAlert2
+ */
+function confirmarReset(id) {
+    Swal.fire({
+        title: '¿Reiniciar contraseña?',
+        text: 'La clave se restablecerá a la genérica: sarce1234',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#28a745',
+        cancelButtonColor: '#dc3545',
+        confirmButtonText: 'Sí, reiniciar',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            window.location.href = 'usuarios.php?id=' + id + '&reset=1';
+        }
+    });
+}
+
 console.log("SARCE: Scripts globales cargados correctamente.");

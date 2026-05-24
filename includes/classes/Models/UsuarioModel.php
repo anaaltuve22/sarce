@@ -123,7 +123,15 @@ class UsuarioModel extends BaseModel {
         return $exito;
     }
 
-    public function getBitacora() {
+    public function getBitacora($busqueda = null) {
+        if (!empty($busqueda)) {
+            $valor = "%$busqueda%";
+            $sql = "SELECT * FROM bitacora WHERE usuario LIKE ? OR accion LIKE ? ORDER BY fecha_hora DESC";
+            $stmt = mysqli_prepare($this->db, $sql);
+            mysqli_stmt_bind_param($stmt, "ss", $valor, $valor);
+            mysqli_stmt_execute($stmt);
+            return mysqli_stmt_get_result($stmt);
+        }
         return mysqli_query($this->db, "SELECT * FROM bitacora ORDER BY fecha_hora DESC");
     }
 }

@@ -12,23 +12,31 @@ if (isset($_POST['guardar'])) {
 }
 
 $datos = $userCtrl->obtenerPorId($id_target);
-$pageTitle = "Usuario | SARCE";
+$pageTitle = "Perfil de Usuario | SARCE";
 include '../../includes/layout_header.php';
 ?>
 <div class="form-container">
-    <h2 style="color: #002347; text-align: center;"><i class="fas fa-user-cog"></i> Gestión de Usuario</h2>
-    <?php if(isset($resultado_perfil)): ?>
-        <p style="text-align:center; color: <?php echo $resultado_perfil['status'] == 'success' ? 'green' : 'red'; ?>;">
-            <?php echo $resultado_perfil['msg']; ?>
-        </p>
+    <h2 class="form-header"><i class="fas fa-user-cog"></i> Perfil de Usuario</h2>
+
+    <?php if (isset($resultado_perfil)): ?>
+        <script>
+            // Se dispara la alerta usando los datos procesados por PHP
+            Swal.fire({
+                icon: '<?php echo $resultado_perfil['status']; ?>',
+                title: '<?php echo ($resultado_perfil['status'] == 'success' ? '¡Éxito!' : 'Error'); ?>',
+                text: '<?php echo $resultado_perfil['msg']; ?>',
+                confirmButtonColor: '#28a745'
+            });
+        </script>
     <?php endif; ?>
+
     <form method="POST">
         <div class="form-grid">
             <div class="input-box"><label>Nombre:</label><input type="text" name="nombre" value="<?php echo $datos['nombre']; ?>" required></div>
             <div class="input-box"><label>Apellido:</label><input type="text" name="apellido" value="<?php echo $datos['apellido']; ?>" required></div>
         </div>
         <div class="input-box"><label>Correo:</label><input type="email" name="correo" value="<?php echo $datos['correo']; ?>" required></div>
-        <div class="input-box"><label>Usuario:</label><input type="text" <?php echo $esAdmin ? 'name="usuario"' : 'readonly'; ?> value="<?php echo $datos['usuario']; ?>"></div>
+        <div class="input-box"><label>Usuario:</label><input type="text" <?php echo $esAdmin ? 'name="usuario"' : 'class="readonly-input" readonly'; ?> value="<?php echo $datos['usuario']; ?>"></div>
         
         <div class="input-box">
             <label>Nueva Contraseña (dejar vacío para no cambiar):</label>
@@ -74,7 +82,22 @@ include '../../includes/layout_header.php';
             </select>
         </div>
         <?php endif; ?>
-        <button type="submit" name="guardar" class="btn-sarce btn-sarce-success" style="width:100%; margin-top:20px;">GUARDAR CAMBIOS</button>
+        <div class="btn-container-sarce">
+            <button type="submit" name="guardar" class="btn-sarce btn-sarce-success">
+                <i class="fas fa-save"></i> GUARDAR
+            </button>
+        </div>
     </form>
 </div>
+<footer class="footer-sarce-principal">
+    <div class="footer-info">
+        <p>
+            <i class="fas fa-map-marker-alt"></i> <strong>Dirección:</strong> Jají, Municipio Campo Elías, Estado Mérida.
+        </p>
+        <p>
+            <i class="fas fa-phone"></i> <strong>Teléfono de Atención:</strong> 04161537743
+        </p>
+    </div>
+    <p>&copy; <?php echo date("Y"); ?> SARCE - Sistema de Control de Registro.</p>
+</footer>
 <?php include '../../includes/layout_footer.php'; ?>

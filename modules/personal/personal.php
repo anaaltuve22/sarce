@@ -7,7 +7,7 @@ include '../../includes/layout_header.php';
 ?>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; background: white; padding: 20px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); border-top: 6px solid #00152b;">
+        <div class="header-tablero">
             <h2><i class="fas fa-user-md"></i> Personal Médico</h2>
             <a href="<?php echo MOD_PERSONAL; ?>registrar_personal.php" class="btn-original btn-atender">
                 <i class="fas fa-plus"></i> REGISTRAR PERSONAL
@@ -15,9 +15,10 @@ include '../../includes/layout_header.php';
         </div>
 
         <div class="container-tabla">
-            <div style="position: relative;">
-                <i class="fas fa-search" style="position: absolute; left: 15px; top: 15px; color: #cbd5e0;"></i>
-                <input type="text" id="buscador" class="search-box" placeholder="Buscar por nombre, cédula o cargo...">
+            <div class="search-box-container" style="position: relative; margin-bottom: 20px;">
+                <i class="fas fa-search search-icon" style="position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: #cbd5e0;"></i>
+                <input type="text" id="buscador" class="search-box" placeholder="Buscar por nombre, cédula o cargo..." 
+                       style="width: 100%; padding: 12px 12px 12px 45px; border: 2px solid #edf2f7; border-radius: 10px; font-size: 14px; outline: none;">
             </div>
 
             <div class="table-responsive">

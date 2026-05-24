@@ -7,7 +7,7 @@ if (strtolower($_SESSION['rol'] ?? '') !== 'admin') {
     exit();
 }
 
-$pageTitle = "Usuario | SARCE";
+$pageTitle = "Perfil de Usuario | SARCE";
 include '../../includes/layout_header.php';
 ?>
 <!-- SweetAlert2 -->
@@ -32,9 +32,7 @@ if (isset($_POST['registrar_personal'])) {
 }
 ?>
 <div class="form-container">
-    <h2 style="color: #002347; text-align: center; margin-bottom: 5px;">
-        <i class="fas fa-user-circle"></i> Usuario
-    </h2>
+    <h2 class="form-header"><i class="fas fa-user-circle"></i> Perfil de Usuario</h2>
     <p style="text-align: center; color: #888; font-size: 12px; margin-bottom: 20px;">Gestión de cuenta de personal</p>
     
     <form method="POST" autocomplete="off">

@@ -8,6 +8,15 @@ class PersonalModel extends BaseModel {
         return mysqli_query($this->db, $sql);
     }
 
+    public function buscar($valor) {
+        $valor = "%$valor%";
+        $sql = "SELECT * FROM personal WHERE (nombre LIKE ? OR apellido LIKE ? OR cedula LIKE ?) AND estado = 1 ORDER BY apellido ASC";
+        $stmt = mysqli_prepare($this->db, $sql);
+        mysqli_stmt_bind_param($stmt, "sss", $valor, $valor, $valor);
+        mysqli_stmt_execute($stmt);
+        return mysqli_stmt_get_result($stmt);
+    }
+
     public function getByCedula($cedula) {
         $stmt = mysqli_prepare($this->db, "SELECT * FROM personal WHERE cedula = ?");
         mysqli_stmt_bind_param($stmt, "s", $cedula);
