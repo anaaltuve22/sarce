@@ -45,4 +45,27 @@ class SistemaController extends BaseController {
         
         return ['status' => 'error', 'msg' => 'Error técnico al ejecutar el archivo de restauración.'];
     }
+
+    /**
+     * Gestiona la descarga del manual de usuario desde el directorio docs.
+     */
+    public function descargarManual() {
+        $file = $_SERVER['DOCUMENT_ROOT'] . '/sarce/docs/manual_usuario.pdf';
+
+        if (file_exists($file)) {
+            $this->registrarBitacora("Descarga de manual de usuario realizada.");
+            
+            header('Content-Description: File Transfer');
+            header('Content-Type: application/pdf');
+            header('Content-Disposition: attachment; filename="Manual_Usuario_SARCE.pdf"');
+            header('Expires: 0');
+            header('Cache-Control: must-revalidate');
+            header('Pragma: public');
+            header('Content-Length: ' . filesize($file));
+            readfile($file);
+            exit();
+        }
+        
+        return ['status' => 'error', 'msg' => 'El archivo del manual no fue encontrado en el servidor.'];
+    }
 }

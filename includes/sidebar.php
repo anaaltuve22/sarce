@@ -45,6 +45,13 @@
             </a>
         </li>
 
+        <li>
+            <a href="<?php echo MOD_SISTEMA; ?>descargar_manual.php">
+                <i class="fas fa-book"></i>
+                <span class="link_name">Manual de Usuario</span>
+            </a>
+        </li>
+
         <?php if (strtolower($_SESSION['rol']) === 'admin'): ?>
         <li>
             <a href="javascript:void(0)" onclick="toggleSubmenu()">
