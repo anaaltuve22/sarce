@@ -44,4 +44,5 @@ include 'includes/layout_header.php'; // Correcto si layout_header.php está en 
         </div>
         <p>&copy; <?php echo date("Y"); ?> SARCE - Sistema de Control de Registro.</p>
     </footer>
+
 <?php include 'includes/layout_footer.php'; // Correcto si layout_footer.php está en includes/ ?>

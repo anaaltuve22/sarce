@@ -19,6 +19,7 @@ if (isset($_SESSION['admin']) && !isset($_GET['action'])) {
 }
 
 $error = ""; // Variable para mostrar errores
+$timeout = isset($_GET['timeout']) && $_GET['timeout'] == '1';
 
 if (isset($_POST['login'])) {
     if ($authCtrl->login($_POST['usuario'], $_POST['password'])) {
@@ -38,16 +39,21 @@ if (isset($_POST['login'])) {
     <link rel="stylesheet" href="assets/css/estilos_globales.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="assets/js/scripts_globales.js" defer></script>
-    <style>body { height: 100vh; display: flex; justify-content: center; align-items: center; background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('<?php echo IMG_URL; ?>fotoambulatorio.jpg'); background-size: cover; background-position: center; }</style>
 </head>
-<body>
+<body class="body-login">
 
 <div class="login-card">
-    <img src="<?php echo IMG_URL; ?>logooficial.png" alt="Logo SARCE" style="width: 140px; margin-top: 20px; margin-bottom: 20px;">
+    <img src="<?php echo IMG_URL; ?>logooficial.png" alt="Logo SARCE" class="login-logo">
     <p class="subtitle">Ambulatorio Rural II de Jají</p>
 
     <?php if($error): ?>
         <div class="error-msg"><i class="fas fa-exclamation-circle"></i> <?php echo $error; ?></div>
+    <?php endif; ?>
+
+    <?php if($timeout): ?>
+        <div class="msg msg-error" style="margin-bottom: 15px;">
+            <i class="fas fa-clock"></i> Cierre por inactividad
+        </div>
     <?php endif; ?>
 
     <form action="" method="POST" autocomplete="off">

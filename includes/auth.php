@@ -15,6 +15,6 @@ if (!isset($_SESSION['admin'])) {
 
 // 5. Control de inactividad (10 minutos)
 if ($authCtrl->checkInactivity(600)) {
-    header("Location: " . BASE_URL . "login.php");
+    header("Location: " . BASE_URL . "login.php?timeout=1");
     exit();
 }

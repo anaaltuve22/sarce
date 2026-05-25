@@ -30,7 +30,7 @@ include '../../includes/layout_header.php';
             <a href="<?php echo BASE_URL; ?>inicio.php" class="btn-sarce" style="background-color: #6c757d; color: white; text-decoration: none; padding: 12px 20px; border-radius: 10px;">
                 CANCELAR
             </a>
-            <button type="submit" name="importar" class="btn-restaurar">
+            <button type="submit" name="importar" class="btn-sarce btn-sarce-success">
                 <i class="fas fa-upload"></i> INICIAR RESTAURACIÓN
             </button>
         </div>
