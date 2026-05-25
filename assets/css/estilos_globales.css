@@ -735,6 +735,19 @@ tr:hover { background-color: #f1f5f9; }
     text-transform: uppercase;
 }
 .btn-recuperar:hover { background: #218838; transform: translateY(-2px); }
+
+.question-display {
+    background: #f1f5f9;
+    padding: 10px 15px;
+    border-radius: 8px;
+    margin: 5px 0 12px 0;
+    font-weight: 600;
+    color: #002347;
+    font-size: 14px;
+    border-left: 4px solid #28a745;
+    text-align: left;
+}
+
 .msg { font-size: 0.85rem; margin-bottom: 20px; padding: 10px; border-radius: 8px; }
 .msg-error { background: #fff5f5; color: #c53030; border: 1px solid #feb2b2; }
 .msg-exito { background: #f0fff4; color: #276749; border: 1px solid #9ae6b4; }

@@ -20,9 +20,9 @@ class UsuarioController extends BaseController {
         $userData = $this->model->getSecurityQuestionsById($userId);
         if ($userData) {
             return [
-                'p1' => $userData['pregunta_1'], 
-                'p2' => $userData['pregunta_2'], 
-                'p3' => $userData['pregunta_3']
+                'p1' => $userData['pregunta_1'] ?? '', 
+                'p2' => $userData['pregunta_2'] ?? '', 
+                'p3' => $userData['pregunta_3'] ?? ''
             ];
         }
         return null;
@@ -35,7 +35,13 @@ class UsuarioController extends BaseController {
     public function iniciarRecuperacion($identificador) {
         $userData = $this->model->getSecurityQuestionsByIdentifier($identificador);
         if ($userData) {
-            return ['status' => 'success', 'user_id' => $userData['id'], 'p1' => $userData['pregunta_1'], 'p2' => $userData['pregunta_2'], 'p3' => $userData['pregunta_3']];
+            return [
+                'status' => 'success', 
+                'user_id' => $userData['id'], 
+                'p1' => $userData['pregunta_1'] ?? '', 
+                'p2' => $userData['pregunta_2'] ?? '', 
+                'p3' => $userData['pregunta_3'] ?? ''
+            ];
         }
         return ['status' => 'error', 'msg' => 'Usuario o correo no encontrado.'];
     }
@@ -99,6 +105,15 @@ class UsuarioController extends BaseController {
         }
         if (strlen($datos['clave']) < 8) {
             return ['status' => 'error', 'msg' => 'La contraseña debe tener al menos 8 caracteres.'];
+        }
+
+        // Validación obligatoria de preguntas de seguridad
+        for ($i = 1; $i <= 3; $i++) {
+            $p_col = "pregunta_$i";
+            $r_col = "respuesta_$i";
+            if (empty($datos[$p_col]) || trim($datos[$p_col]) === '' || empty($datos[$r_col])) {
+                return ['status' => 'error', 'msg' => 'Debe completar todas las preguntas y respuestas de seguridad.'];
+            }
         }
 
         if ($datos['clave'] !== ($datos['confirmar_clave'] ?? '')) {

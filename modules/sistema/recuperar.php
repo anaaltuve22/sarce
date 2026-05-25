@@ -17,9 +17,9 @@ if (isset($_POST['buscar_usuario'])) {
     if ($resultado['status'] === 'success') {
         $paso = 2;
         $user_id = $resultado['user_id'];
-        $p1_db = $resultado['p1'];
-        $p2_db = $resultado['p2'];
-        $p3_db = $resultado['p3'];
+        $p1_db = !empty($resultado['p1']) ? $resultado['p1'] : 'Pregunta 1 no disponible';
+        $p2_db = !empty($resultado['p2']) ? $resultado['p2'] : 'Pregunta 2 no disponible';
+        $p3_db = !empty($resultado['p3']) ? $resultado['p3'] : 'Pregunta 3 no disponible';
     } else {
         $mensaje = $resultado['msg'];
         $tipo_error = "error";
@@ -44,9 +44,9 @@ if (isset($_POST['verificar_respuesta'])) {
 
         // Recargar preguntas para la vista
         $preguntas = $usuarioCtrl->obtenerPreguntasPorId($user_id);
-        $p1_db = $preguntas['p1'] ?? 'Pregunta no disponible';
-        $p2_db = $preguntas['p2'] ?? 'Pregunta no disponible';
-        $p3_db = $preguntas['p3'] ?? 'Pregunta no disponible';
+        $p1_db = !empty($preguntas['p1']) ? $preguntas['p1'] : 'Pregunta 1 no disponible';
+        $p2_db = !empty($preguntas['p2']) ? $preguntas['p2'] : 'Pregunta 2 no disponible';
+        $p3_db = !empty($preguntas['p3']) ? $preguntas['p3'] : 'Pregunta 3 no disponible';
     }
 }
 
@@ -105,17 +105,20 @@ if (isset($_POST['cambiar_clave'])) {
             <input type="hidden" name="user_id" value="<?php echo $user_id; ?>">
             
             <div class="input-group">
-                <label><i class="fas fa-question-circle"></i> Pregunta de Seguridad 1: <b><?php echo htmlspecialchars($p1_db); ?></b></label>
+                <label><i class="fas fa-shield-alt"></i> Pregunta de Seguridad 1:</label>
+                <div class="question-display"><?php echo htmlspecialchars($p1_db); ?></div>
                 <input type="text" name="r1" placeholder="Respuesta 1" required autofocus>
             </div>
 
             <div class="input-group">
-                <label><i class="fas fa-question-circle"></i> Pregunta de Seguridad 2: <b><?php echo htmlspecialchars($p2_db); ?></b></label>
+                <label><i class="fas fa-shield-alt"></i> Pregunta de Seguridad 2:</label>
+                <div class="question-display"><?php echo htmlspecialchars($p2_db); ?></div>
                 <input type="text" name="r2" placeholder="Respuesta 2" required>
             </div>
 
             <div class="input-group">
-                <label><i class="fas fa-question-circle"></i> Pregunta de Seguridad 3: <b><?php echo htmlspecialchars($p3_db); ?></b></label>
+                <label><i class="fas fa-shield-alt"></i> Pregunta de Seguridad 3:</label>
+                <div class="question-display"><?php echo htmlspecialchars($p3_db); ?></div>
                 <input type="text" name="r3" placeholder="Respuesta 3" required>
             </div>
 
