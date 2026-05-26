@@ -48,6 +48,9 @@ class PacienteController extends BaseController {
             return ['status' => 'warning', 'msg' => 'La cédula ya se encuentra registrada en el sistema.'];
         }
 
+        // Establecer el estado activo (1) por defecto al registrar un paciente
+        $datos['estado'] = 1;
+
         if ($this->model->insertar($datos)) {
             $this->registrarBitacora("Paciente registrado: {$datos['nombre']} {$datos['apellido']} (C.I: {$datos['cedula']})");
             return ['status' => 'success', 'msg' => 'Paciente registrado con éxito.'];

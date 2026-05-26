@@ -126,6 +126,9 @@ class UsuarioController extends BaseController {
 
         $datos['clave'] = password_hash($datos['clave'], PASSWORD_DEFAULT);
 
+        // Forzar que el usuario se cree con estado Activo (1)
+        $datos['estado'] = 1;
+
         if ($this->model->insertar($datos)) {
             $this->registrarBitacora("Nuevo usuario registrado: {$datos['usuario']} (Rol: {$datos['rol']})");
             return ['status' => 'success', 'msg' => 'La cuenta de personal ha sido creada con éxito.'];

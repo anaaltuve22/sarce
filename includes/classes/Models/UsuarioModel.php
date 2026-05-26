@@ -56,8 +56,8 @@ class UsuarioModel extends BaseModel {
     }
 
     public function insertar($datos) {
-        $sql = "INSERT INTO usuarios (nombre, apellido, correo, usuario, clave, rol, pregunta_1, respuesta_1, pregunta_2, respuesta_2, pregunta_3, respuesta_3) 
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO usuarios (nombre, apellido, correo, usuario, clave, rol, pregunta_1, respuesta_1, pregunta_2, respuesta_2, pregunta_3, respuesta_3, estado) 
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1)";
         $stmt = mysqli_prepare($this->db, $sql);
         mysqli_stmt_bind_param($stmt, "ssssssssssss", 
             $datos['nombre'], $datos['apellido'], $datos['correo'], $datos['usuario'], 

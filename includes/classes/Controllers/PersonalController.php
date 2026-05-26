@@ -37,6 +37,9 @@ class PersonalController extends BaseController {
             return ['status' => 'error', 'msg' => 'El apellido solo puede contener letras.'];
         }
 
+        // Garantizar que el personal se registre con estado Activo (1)
+        $datos['estado'] = 1;
+
         if ($this->model->insertar($datos)) {
             $this->registrarBitacora("Personal médico registrado: {$datos['nombre']} {$datos['apellido']}");
             return ['status' => 'success', 'msg' => 'Personal registrado con éxito.'];
