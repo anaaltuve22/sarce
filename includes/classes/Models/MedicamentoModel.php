@@ -25,18 +25,16 @@ class MedicamentoModel extends BaseModel {
     }
 
     public function insertar($datos) {
-        $vencimiento = !empty($datos['fecha_vencimiento']) ? $datos['fecha_vencimiento'] : NULL;
-        $stmt = mysqli_prepare($this->db, "INSERT INTO medicamentos (nombre, descripcion, fecha_vencimiento, estado) VALUES (?, ?, ?, 1)");
-        mysqli_stmt_bind_param($stmt, "sss", $datos['nombre'], $datos['descripcion'], $vencimiento);
+        $stmt = mysqli_prepare($this->db, "INSERT INTO medicamentos (nombre, descripcion, estado) VALUES (?, ?, 1)");
+        mysqli_stmt_bind_param($stmt, "ss", $datos['nombre'], $datos['descripcion']);
         $exito = mysqli_stmt_execute($stmt);
         mysqli_stmt_close($stmt);
         return $exito;
     }
 
     public function actualizar($datos) {
-        $vencimiento = !empty($datos['fecha_vencimiento']) ? $datos['fecha_vencimiento'] : NULL;
-        $stmt = mysqli_prepare($this->db, "UPDATE medicamentos SET nombre=?, descripcion=?, fecha_vencimiento=? WHERE id=?");
-        mysqli_stmt_bind_param($stmt, "sssi", $datos['nombre'], $datos['descripcion'], $vencimiento, $datos['id_med']);
+        $stmt = mysqli_prepare($this->db, "UPDATE medicamentos SET nombre=?, descripcion=? WHERE id=?");
+        mysqli_stmt_bind_param($stmt, "ssi", $datos['nombre'], $datos['descripcion'], $datos['id_med']);
         $exito = mysqli_stmt_execute($stmt);
         mysqli_stmt_close($stmt);
         return $exito;
