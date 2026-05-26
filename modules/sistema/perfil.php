@@ -11,6 +11,7 @@ if (isset($_POST['guardar'])) {
     $resultado_perfil = $res;
 }
 
+$opcionesPreguntas = $userCtrl->obtenerOpcionesPreguntas();
 $datos = $userCtrl->obtenerPorId($id_target);
 $pageTitle = "Perfil de Usuario | SARCE";
 include '../../includes/layout_header.php';
@@ -56,30 +57,39 @@ include '../../includes/layout_header.php';
 
         <div class="input-box">
             <label>Pregunta de Seguridad 1:</label>
-            <select name="p1">
-                <option value="<?php echo htmlspecialchars($datos['pregunta_1'] ?? ''); ?>"><?php echo htmlspecialchars($datos['pregunta_1'] ?? 'Seleccione...'); ?></option>
-                <option value="¿Cuál es el nombre de tu primera mascota?">¿Cuál es el nombre de tu primera mascota?</option>
-                <option value="¿En qué ciudad nació tu madre?">¿En qué ciudad nació tu madre?</option>
+            <select name="p1" onchange="validarPreguntasUnicas()">
+                <option value="<?php echo htmlspecialchars($datos['pregunta_1'] ?? ''); ?>" selected><?php echo htmlspecialchars($datos['pregunta_1'] ?? 'Seleccione...'); ?></option>
+                <?php foreach($opcionesPreguntas as $p): ?>
+                    <?php if($p !== ($datos['pregunta_1'] ?? '')): ?>
+                        <option value="<?php echo $p; ?>"><?php echo $p; ?></option>
+                    <?php endif; ?>
+                <?php endforeach; ?>
             </select>
             <input type="text" name="r1" placeholder="Nueva respuesta">
         </div>
 
         <div class="input-box">
             <label>Pregunta de Seguridad 2:</label>
-            <select name="p2">
-                <option value="<?php echo htmlspecialchars($datos['pregunta_2'] ?? ''); ?>"><?php echo htmlspecialchars($datos['pregunta_2'] ?? 'Seleccione...'); ?></option>
-                <option value="¿Cuál era el nombre de tu escuela primaria?">¿Cuál era el nombre de tu escuela primaria?</option>
-                <option value="¿Cuál es tu color favorito?">¿Cuál es tu color favorito?</option>
+            <select name="p2" onchange="validarPreguntasUnicas()">
+                <option value="<?php echo htmlspecialchars($datos['pregunta_2'] ?? ''); ?>" selected><?php echo htmlspecialchars($datos['pregunta_2'] ?? 'Seleccione...'); ?></option>
+                <?php foreach($opcionesPreguntas as $p): ?>
+                    <?php if($p !== ($datos['pregunta_2'] ?? '')): ?>
+                        <option value="<?php echo $p; ?>"><?php echo $p; ?></option>
+                    <?php endif; ?>
+                <?php endforeach; ?>
             </select>
             <input type="text" name="r2" placeholder="Nueva respuesta">
         </div>
 
         <div class="input-box">
             <label>Pregunta de Seguridad 3:</label>
-            <select name="p3">
-                <option value="<?php echo htmlspecialchars($datos['pregunta_3'] ?? ''); ?>"><?php echo htmlspecialchars($datos['pregunta_3'] ?? 'Seleccione...'); ?></option>
-                <option value="¿Cuál es el nombre de tu mejor amigo de la infancia?">¿Cuál es el nombre de tu mejor amigo de la infancia?</option>
-                <option value="¿Cuál fue tu primer trabajo?">¿Cuál fue tu primer trabajo?</option>
+            <select name="p3" onchange="validarPreguntasUnicas()">
+                <option value="<?php echo htmlspecialchars($datos['pregunta_3'] ?? ''); ?>" selected><?php echo htmlspecialchars($datos['pregunta_3'] ?? 'Seleccione...'); ?></option>
+                <?php foreach($opcionesPreguntas as $p): ?>
+                    <?php if($p !== ($datos['pregunta_3'] ?? '')): ?>
+                        <option value="<?php echo $p; ?>"><?php echo $p; ?></option>
+                    <?php endif; ?>
+                <?php endforeach; ?>
             </select>
             <input type="text" name="r3" placeholder="Nueva respuesta">
         </div>

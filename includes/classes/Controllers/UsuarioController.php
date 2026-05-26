@@ -14,6 +14,24 @@ class UsuarioController extends BaseController {
     }
 
     /**
+     * Retorna el listado oficial de preguntas de seguridad disponibles.
+     */
+    public function obtenerOpcionesPreguntas() {
+        return [
+            "1" => "¿Cuál es el nombre de su primera mascota?",
+            "2" => "¿En qué ciudad nacieron sus padres?",
+            "3" => "¿Cómo se llamaba su escuela primaria?",
+            "4" => "¿Cuál era su color favorito en la infancia?",
+            "5" => "¿Cuál es el nombre de su mejor amigo de la infancia?",
+            "6" => "¿Cuál es el nombre de su abuela materna?",
+            "7" => "¿Cuál era su comida favorita de niño?",
+            "8" => "¿En qué calle se encuentra la casa donde creció?",
+            "9" => "¿Cuál es el nombre de su personaje histórico favorito?",
+            "10" => "¿Cuál fue el primer modelo de vehículo que tuvo?"
+        ];
+    }
+
+    /**
      * Obtiene específicamente las preguntas de seguridad de un usuario por su ID
      */
     public function obtenerPreguntasPorId($userId) {

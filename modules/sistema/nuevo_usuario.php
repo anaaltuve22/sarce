@@ -9,13 +9,11 @@ if (strtolower($_SESSION['rol'] ?? '') !== 'admin') {
 
 $pageTitle = "Registrar Personal | SARCE";
 include '../../includes/layout_header.php';
-?>
-<!-- SweetAlert2 -->
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<?php
+
+$userCtrl = new UsuarioController($conexion);
+$preguntas = $userCtrl->obtenerOpcionesPreguntas();
 
 if (isset($_POST['registrar_personal'])) {
-    $userCtrl = new UsuarioController($conexion);
     $resultado = $userCtrl->registrar($_POST);
 
     echo "<script>
@@ -75,30 +73,33 @@ if (isset($_POST['registrar_personal'])) {
 
         <div class="input-box">
             <label><i class="fas fa-shield-alt"></i> Pregunta de Seguridad 1:</label>
-            <select name="p1" required>
-                <option value="">Seleccione...</option>
-                <option value="¿Cuál es el nombre de tu primera mascota?">¿Cuál es el nombre de tu primera mascota?</option>
-                <option value="¿En qué ciudad nació tu madre?">¿En qué ciudad nació tu madre?</option>
+            <select name="p1" required onchange="validarPreguntasUnicas()">
+                <option value="" disabled selected>Seleccione una pregunta...</option>
+                <?php foreach($preguntas as $p): ?>
+                    <option value="<?php echo $p; ?>"><?php echo $p; ?></option>
+                <?php endforeach; ?>
             </select>
             <input type="text" name="r1" placeholder="Respuesta 1" required style="margin-top:8px;">
         </div>
 
         <div class="input-box">
             <label><i class="fas fa-shield-alt"></i> Pregunta de Seguridad 2:</label>
-            <select name="p2" required>
-                <option value="">Seleccione...</option>
-                <option value="¿Cuál era el nombre de tu escuela primaria?">¿Cuál era el nombre de tu escuela primaria?</option>
-                <option value="¿Cuál es tu color favorito?">¿Cuál es tu color favorito?</option>
+            <select name="p2" required onchange="validarPreguntasUnicas()">
+                <option value="" disabled selected>Seleccione una pregunta...</option>
+                <?php foreach($preguntas as $p): ?>
+                    <option value="<?php echo $p; ?>"><?php echo $p; ?></option>
+                <?php endforeach; ?>
             </select>
             <input type="text" name="r2" placeholder="Respuesta 2" required style="margin-top:8px;">
         </div>
 
         <div class="input-box">
             <label><i class="fas fa-shield-alt"></i> Pregunta de Seguridad 3:</label>
-            <select name="p3" required>
-                <option value="">Seleccione...</option>
-                <option value="¿Cuál es el nombre de tu mejor amigo de la infancia?">¿Cuál es el nombre de tu mejor amigo de la infancia?</option>
-                <option value="¿Cuál fue tu primer trabajo?">¿Cuál fue tu primer trabajo?</option>
+            <select name="p3" required onchange="validarPreguntasUnicas()">
+                <option value="" disabled selected>Seleccione una pregunta...</option>
+                <?php foreach($preguntas as $p): ?>
+                    <option value="<?php echo $p; ?>"><?php echo $p; ?></option>
+                <?php endforeach; ?>
             </select>
             <input type="text" name="r3" placeholder="Respuesta 3" required style="margin-top:8px;">
         </div>
