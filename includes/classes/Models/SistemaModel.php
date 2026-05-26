@@ -18,7 +18,7 @@ class SistemaModel extends BaseModel {
         $salida .= "SET FOREIGN_KEY_CHECKS=0;\n\n";
 
         foreach ($tablas as $tabla) {
-            // Obtener estructura
+            // Estructura de la tabla: Añadimos DROP para permitir la recreación limpia
             $resStructure = mysqli_query($this->db, "SHOW CREATE TABLE `$tabla` ");
             $rowStructure = mysqli_fetch_row($resStructure);
             $salida .= "DROP TABLE IF EXISTS `$tabla`;\n";
