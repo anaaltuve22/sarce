@@ -50,7 +50,8 @@ class SistemaController extends BaseController {
      * Gestiona la descarga del manual de usuario desde el directorio docs.
      */
     public function descargarManual() {
-        $file = $_SERVER['DOCUMENT_ROOT'] . '/sarce/docs/manual_usuario.pdf';
+        // Usamos la constante BASE_URL definida en config.php para evitar rutas fijas
+        $file = $_SERVER['DOCUMENT_ROOT'] . BASE_URL . 'docs/manual_usuario.pdf';
 
         if (file_exists($file)) {
             $this->registrarBitacora("Descarga de manual de usuario realizada.");
