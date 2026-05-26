@@ -38,24 +38,24 @@ include '../../includes/layout_header.php';
 <div class="form-consulta-manual">
     <h2>Registro Diario de Pacientes</h2>
     <form method="POST">
-        <input type="number" name="cedula" value="<?php echo $_GET['cedula'] ?? ''; ?>" placeholder="Cédula del Paciente" required>
+        <input type="number" name="cedula" value="<?php echo htmlspecialchars($_GET['cedula'] ?? '', ENT_QUOTES, 'UTF-8'); ?>" placeholder="Cédula del Paciente" required>
 
         <input type="number" name="cedula_personal" placeholder="Cédula del Personal que atiende" required>
 
         <input type="text" name="direccion" placeholder="Dirección (Sector/Calle)" required>
         
-        <div class="fila-vitales" style="display: flex; gap: 10px; margin-bottom: 15px;">
-            <input type="text" name="tension" placeholder="T/A" required style="margin-bottom: 0;">
-            <input type="text" name="peso" placeholder="Peso" required style="margin-bottom: 0;">
-            <input type="text" name="talla" placeholder="Talla" required style="margin-bottom: 0;">
-            <input type="text" name="temperatura" placeholder="Tem" required style="margin-bottom: 0;">
+        <div class="fila-vitales-flex">
+            <input type="text" name="tension" placeholder="T/A" required>
+            <input type="text" name="peso" placeholder="Peso" required>
+            <input type="text" name="talla" placeholder="Talla" required>
+            <input type="text" name="temperatura" placeholder="Tem" required>
         </div>
 
         <textarea name="tratamiento" placeholder="Observación / Tratamiento (TTO)" rows="3" required></textarea>
         
-        <button type="submit" name="guardar_consulta" class="btn-sarce" style="background-color: #28a745;">Guardar en Libro Diario</button>
+        <button type="submit" name="guardar_consulta" class="btn-sarce btn-sarce-success">Guardar en Libro Diario</button>
     </form>
     <br>
-    <a href="<?php echo BASE_URL; ?>index.php" style="display:block; text-align:center; color: #666;">Cancelar y volver</a>
+    <a href="<?php echo BASE_URL; ?>index.php" class="link-volver-centro">Cancelar y volver</a>
 </div>
 <?php include '../../includes/layout_footer.php'; ?>

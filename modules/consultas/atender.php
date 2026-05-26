@@ -69,10 +69,10 @@ $edad_p = ($paciente['edad'] > 0) ? $paciente['edad'] : "No registrada";
             <input type="hidden" name="edad" value="<?php echo $paciente['edad']; ?>"> 
             <input type="hidden" name="direccion" value="<?php echo $direccion_p; ?>">
 
-            <div class="form-grid" style="gap: 20px; margin-bottom: 0;">
+            <div class="form-grid">
                 <div class="input-box">
                     <label><i class="fas fa-user-md"></i> Profesional que Atiende:</label>
-                    <select name="cedula_personal" required>
+                    <select name="cedula_personal" class="form-control" required>
                         <option value="">Seleccione el médico o enfermera...</option>
                         <?php while($p = mysqli_fetch_assoc($res_personal)):
                             $is_selected = ($cedula_profesional_logueado == $p['cedula']) ? 'selected' : '';
@@ -116,8 +116,8 @@ $edad_p = ($paciente['edad'] > 0) ? $paciente['edad'] : "No registrada";
                 </select>
             </div>
 
-            <div id="box_nueva_patologia" style="display: none; margin-top: 10px; background: #fffaf0; padding: 15px; border-radius: 10px; border: 1px solid #fbd38d;">
-                <label style="color: #c05621;"><i class="fas fa-plus-circle"></i> Nombre de la Nueva Patología:</label>
+            <div id="box_nueva_patologia" class="bg-alerta-naranja" style="display: none;">
+                <label class="label-naranja"><i class="fas fa-plus-circle"></i> Nombre de la Nueva Patología:</label>
                 <input type="text" name="nueva_patologia_nombre" id="input_nueva_patologia" placeholder="Ej: Hipertensión Arterial">
             </div>
 

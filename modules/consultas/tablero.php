@@ -34,11 +34,11 @@ include '../../includes/layout_header.php';
 <div class="container">
     <div class="header-tablero">
         <div>
-            <h3 style="margin:0; color: #002347;"><?php echo $info_periodo; ?></h3>
+            <h3 class="text-navy" style="margin:0;"><?php echo htmlspecialchars($info_periodo); ?></h3>
         </div>
         
-        <div style="display: flex; gap: 15px; align-items: center;">
-            <div style="background: rgba(255,255,255,0.1); padding: 5px; border-radius: 10px; display: flex;">
+        <div class="flex-gap-15">
+            <div class="bg-input-group">
                 <a href="?periodo=semanal" class="btn-filtro <?php echo $filtro=='semanal'?'active':''; ?>">Semana</a>
                 <a href="?periodo=mes" class="btn-filtro <?php echo $filtro=='mes'?'active':''; ?>">Mes</a>
                 <a href="?periodo=año" class="btn-filtro <?php echo $filtro=='año'?'active':''; ?>">Año</a>

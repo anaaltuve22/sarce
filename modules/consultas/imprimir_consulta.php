@@ -32,7 +32,7 @@ include '../../includes/layout_header.php';
     <div class="ticket-content">
         <!-- 1. IDENTIFICACIÓN DEL PACIENTE -->
         <div class="info-grid">
-            <div class="info-item"><b>Cédula</b> <span>V-<?php echo $datos['pac_ced']; ?></span></div>
+            <div class="info-item"><b>Cédula</b> <span>V-<?php echo htmlspecialchars($datos['pac_ced']); ?></span></div>
             <div class="info-item"><b>Fecha</b> <span><?php echo date("d/m/Y", strtotime($datos['fecha'])); ?></span></div>
             <div class="info-item" style="grid-column: span 2;"><b>Paciente</b> <span><?php echo strtoupper($datos['pac_nom'] . " " . $datos['pac_ape']); ?></span></div>
         </div>
