@@ -22,9 +22,13 @@ $error = ""; // Variable para mostrar errores
 $timeout = isset($_GET['timeout']) && $_GET['timeout'] == '1';
 
 if (isset($_POST['login'])) {
-    if ($authCtrl->login($_POST['usuario'], $_POST['password'])) {
+    $resultado = $authCtrl->login($_POST['usuario'], $_POST['password']);
+
+    if ($resultado === true) {
         header("Location: inicio.php");
         exit();
+    } elseif ($resultado === "inactivo") {
+        $error = "Su cuenta se encuentra inhabilitada. Contacte al administrador.";
     } else {
         $error = "Usuario o contraseña incorrectos.";
     }
