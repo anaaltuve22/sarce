@@ -12,7 +12,6 @@ if(isset($_POST['guardar_consulta'])) {
     $_POST['id_patologia']    = 1; // ID genérico o por defecto
     $_POST['motivo']          = "Consulta registrada vía formulario rápido";
     $_POST['medicamentos_entregados'] = '';
-    $_POST['cedula_personal'] = $_SESSION['cedula_admin'] ?? null;
     $_POST['edad']            = 0; // El modelo espera este entero
 
     $resultado = $consultaCtrl->registrar($_POST);
@@ -40,6 +39,8 @@ include '../../includes/layout_header.php';
     <h2>Registro Diario de Pacientes</h2>
     <form method="POST">
         <input type="number" name="cedula" value="<?php echo $_GET['cedula'] ?? ''; ?>" placeholder="Cédula del Paciente" required>
+
+        <input type="number" name="cedula_personal" placeholder="Cédula del Personal que atiende" required>
 
         <input type="text" name="direccion" placeholder="Dirección (Sector/Calle)" required>
         

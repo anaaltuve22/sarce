@@ -18,7 +18,6 @@ class AuthController extends BaseController {
 
             $_SESSION['admin'] = $usuario['usuario'];
             $_SESSION['rol'] = $usuario['rol'];
-            $_SESSION['cedula_admin'] = $usuario['cedula'];
             $_SESSION['id_usuario_rel'] = $usuario['id'];
             $_SESSION['ultimo_acceso'] = time();
             

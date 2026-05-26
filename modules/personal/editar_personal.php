@@ -56,9 +56,6 @@ if (isset($_POST['actualizar'])) {
             <option value="Personal Administrativo" <?php if($p['cargo'] == 'Personal Administrativo') echo 'selected'; ?>>Personal Administrativo</option>
         </select>
         <div class="btn-container-sarce">
-            <a href="<?php echo MOD_PERSONAL; ?>personal.php" class="btn-sarce" style="background-color: #6c757d;">
-                <i class="fas fa-arrow-left"></i> REGRESAR
-            </a>
             <button type="submit" name="actualizar" class="btn-sarce" style="background-color: #28a745;">
                 <i class="fas fa-save"></i> ACTUALIZAR
             </button>
