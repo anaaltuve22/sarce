@@ -216,11 +216,18 @@ body {
     }
 
     .vitals-grid {
-        grid-template-columns: repeat(4, 1fr) !important; /* Todos alineados en una sola fila */
+        grid-template-columns: repeat(2, 1fr) !important; /* Mejor legibilidad en móviles */
     }
 
     .full-width {
         grid-column: span 1 !important;
+    }
+
+    .header-tablero {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+        padding: 15px !important;
     }
 
     /* Ajustes de contenedores */
@@ -493,6 +500,23 @@ footer {
     flex: 1;
     text-align: center;
 }
+.fila-vitales-flex {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+.fila-vitales-flex input {
+    margin-bottom: 0 !important;
+}
+
+/* Utilidades de Diseño */
+.link-volver-centro { display: block; text-align: center; color: #666; text-decoration: none; margin-top: 10px; }
+.text-navy { color: #002347 !important; }
+.bg-alerta-naranja { background: #fffaf0; padding: 15px; border-radius: 10px; border: 1px solid #fbd38d; margin-top: 10px; }
+.label-naranja { color: #c05621; font-weight: 600; }
+.flex-gap-15 { display: flex; gap: 15px; align-items: center; }
+.bg-input-group { background: rgba(255,255,255,0.1); padding: 5px; border-radius: 10px; display: flex; }
+
 
 /* Tablas de Datos */
 table { width: 100%; border-collapse: collapse; margin-top: 15px; }
