@@ -170,11 +170,14 @@ class UsuarioController extends BaseController {
         for ($i = 1; $i <= 3; $i++) {
             $p_key = "p$i";
             $r_key = "r$i";
-            // Solo actualizamos la pregunta si el usuario proporcionó una respuesta
-            if (!empty($datos[$r_key])) {
-                $datos["pregunta_$i"] = $datos[$p_key];
-                $datos["respuesta_$i"] = $datos[$r_key];
+            
+            // Validación de obligatoriedad para asegurar integridad de recuperación
+            if (empty($datos[$p_key]) || empty($datos[$r_key])) {
+                return ['status' => 'error', 'msg' => "Debe completar la pregunta y respuesta de seguridad $i."];
             }
+
+            $datos["pregunta_$i"] = $datos[$p_key];
+            $datos["respuesta_$i"] = $datos[$r_key];
             unset($datos[$p_key], $datos[$r_key]);
         }
 

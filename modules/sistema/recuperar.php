@@ -15,11 +15,17 @@ if (isset($_POST['buscar_usuario'])) {
     $resultado = $usuarioCtrl->iniciarRecuperacion($identificador);
 
     if ($resultado['status'] === 'success') {
-        $paso = 2;
-        $user_id = $resultado['user_id'];
-        $p1_db = !empty($resultado['p1']) ? $resultado['p1'] : 'Pregunta 1 no disponible';
-        $p2_db = !empty($resultado['p2']) ? $resultado['p2'] : 'Pregunta 2 no disponible';
-        $p3_db = !empty($resultado['p3']) ? $resultado['p3'] : 'Pregunta 3 no disponible';
+        // Verificar si el usuario realmente tiene preguntas configuradas en la base de datos
+        if (empty($resultado['p1']) || empty($resultado['p2']) || empty($resultado['p3'])) {
+            $mensaje = "Esta cuenta no tiene preguntas de seguridad configuradas. Por favor, contacte al administrador para un restablecimiento manual.";
+            $tipo_error = "error";
+        } else {
+            $paso = 2;
+            $user_id = $resultado['user_id'];
+            $p1_db = $resultado['p1'];
+            $p2_db = $resultado['p2'];
+            $p3_db = $resultado['p3'];
+        }
     } else {
         $mensaje = $resultado['msg'];
         $tipo_error = "error";
@@ -44,9 +50,15 @@ if (isset($_POST['verificar_respuesta'])) {
 
         // Recargar preguntas para la vista
         $preguntas = $usuarioCtrl->obtenerPreguntasPorId($user_id);
-        $p1_db = !empty($preguntas['p1']) ? $preguntas['p1'] : 'Pregunta 1 no disponible';
-        $p2_db = !empty($preguntas['p2']) ? $preguntas['p2'] : 'Pregunta 2 no disponible';
-        $p3_db = !empty($preguntas['p3']) ? $preguntas['p3'] : 'Pregunta 3 no disponible';
+        if ($preguntas) {
+            $p1_db = $preguntas['p1'];
+            $p2_db = $preguntas['p2'];
+            $p3_db = $preguntas['p3'];
+        } else {
+            $mensaje = "Error crítico al recuperar las preguntas de seguridad.";
+            $tipo_error = "error";
+            $paso = 1;
+        }
     }
 }
 

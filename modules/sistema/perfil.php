@@ -57,7 +57,7 @@ include '../../includes/layout_header.php';
 
         <div class="input-box">
             <label>Pregunta de Seguridad 1:</label>
-            <select name="p1" onchange="validarPreguntasUnicas()">
+            <select name="p1" onchange="validarPreguntasUnicas()" required>
                 <option value="<?php echo htmlspecialchars($datos['pregunta_1'] ?? ''); ?>" selected><?php echo htmlspecialchars($datos['pregunta_1'] ?? 'Seleccione...'); ?></option>
                 <?php foreach($opcionesPreguntas as $p): ?>
                     <?php if($p !== ($datos['pregunta_1'] ?? '')): ?>
@@ -65,12 +65,12 @@ include '../../includes/layout_header.php';
                     <?php endif; ?>
                 <?php endforeach; ?>
             </select>
-            <input type="text" name="r1" placeholder="Nueva respuesta">
+            <input type="text" name="r1" placeholder="Respuesta de seguridad" required>
         </div>
 
         <div class="input-box">
             <label>Pregunta de Seguridad 2:</label>
-            <select name="p2" onchange="validarPreguntasUnicas()">
+            <select name="p2" onchange="validarPreguntasUnicas()" required>
                 <option value="<?php echo htmlspecialchars($datos['pregunta_2'] ?? ''); ?>" selected><?php echo htmlspecialchars($datos['pregunta_2'] ?? 'Seleccione...'); ?></option>
                 <?php foreach($opcionesPreguntas as $p): ?>
                     <?php if($p !== ($datos['pregunta_2'] ?? '')): ?>
@@ -78,12 +78,12 @@ include '../../includes/layout_header.php';
                     <?php endif; ?>
                 <?php endforeach; ?>
             </select>
-            <input type="text" name="r2" placeholder="Nueva respuesta">
+            <input type="text" name="r2" placeholder="Respuesta de seguridad" required>
         </div>
 
         <div class="input-box">
             <label>Pregunta de Seguridad 3:</label>
-            <select name="p3" onchange="validarPreguntasUnicas()">
+            <select name="p3" onchange="validarPreguntasUnicas()" required>
                 <option value="<?php echo htmlspecialchars($datos['pregunta_3'] ?? ''); ?>" selected><?php echo htmlspecialchars($datos['pregunta_3'] ?? 'Seleccione...'); ?></option>
                 <?php foreach($opcionesPreguntas as $p): ?>
                     <?php if($p !== ($datos['pregunta_3'] ?? '')): ?>
@@ -91,7 +91,7 @@ include '../../includes/layout_header.php';
                     <?php endif; ?>
                 <?php endforeach; ?>
             </select>
-            <input type="text" name="r3" placeholder="Nueva respuesta">
+            <input type="text" name="r3" placeholder="Respuesta de seguridad" required>
         </div>
 
         <?php if($esAdmin): ?>
