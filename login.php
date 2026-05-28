@@ -13,11 +13,6 @@ if (isset($_GET['action']) && $_GET['action'] === 'logout') {
     exit();
 }
 
-if (isset($_SESSION['admin']) && !isset($_GET['action'])) {
-    header("Location: inicio.php");
-    exit();
-}
-
 $error = ""; // Variable para mostrar errores
 $timeout = isset($_GET['timeout']) && $_GET['timeout'] == '1';
 

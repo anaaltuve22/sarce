@@ -23,15 +23,9 @@ require_once 'includes/config.php';
     <main class="landing-wrapper" style="background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('<?php echo IMG_URL; ?>fotoambulatorio.jpg');">
         
         <nav class="nav-container">
-            <?php if (!isset($_SESSION['admin'])): ?>
-                <a href="login.php" class="btn-nav btn-login">
-                    <i class="fas fa-user-circle"></i> INICIAR SESIÓN
-                </a>
-            <?php else: ?>
-                <a href="inicio.php" class="btn-nav btn-panel">
-                    <i class="fas fa-th-large"></i> IR AL PANEL
-                </a>
-            <?php endif; ?>
+            <a href="login.php" class="btn-nav btn-login">
+                <i class="fas fa-user-circle"></i> INICIAR SESIÓN
+            </a>
         </nav>
 
         <header class="hero-text">
