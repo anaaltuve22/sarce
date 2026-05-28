@@ -25,12 +25,14 @@ if (isset($_GET['id']) && isset($_GET['reset'])) {
     $userCtrl->reiniciarClave($_GET['id'], 'sarce1234');
     echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
     echo "<script>
-        Swal.fire({
-            icon: 'success',
-            title: 'Contraseña Reiniciada',
-            text: 'La nueva clave temporal es: sarce1234',
-            confirmButtonColor: '#28a745'
-        }).then(() => { window.location='usuarios.php'; });
+        window.onload = function() {
+            Swal.fire({
+                icon: 'success',
+                title: 'Contraseña Reiniciada',
+                text: 'La nueva clave temporal es: sarce1234',
+                confirmButtonColor: '#28a745'
+            }).then(() => { window.location='usuarios.php'; });
+        };
     </script>";
     exit();
 }
