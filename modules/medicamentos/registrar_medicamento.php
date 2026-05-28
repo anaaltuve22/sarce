@@ -34,7 +34,7 @@ if (isset($_POST['registrar'])) {
         </div>
         <div class="form-group">
             <label><i class="fas fa-align-left"></i> Descripción / Presentación:</label>
-            <textarea name="descripcion" rows="3" placeholder="Ej: Tabletas - Caja de 20 unidades"></textarea>
+            <textarea name="descripcion" rows="3" placeholder="Ej: Tabletas - Caja de 20 unidades" required></textarea>
         </div>
         <div class="btn-container-sarce">
             <button type="submit" name="registrar" class="btn-sarce" style="background-color: #28a745;">
