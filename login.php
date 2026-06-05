@@ -24,6 +24,8 @@ if (isset($_POST['login'])) {
         exit();
     } elseif ($resultado === "inactivo") {
         $error = "Su cuenta se encuentra inhabilitada. Contacte al administrador.";
+    } elseif ($resultado === "sesion_activa") {
+        $error = "Esta cuenta ya tiene una sesión activa en otro dispositivo.";
     } else {
         $error = "Usuario o contraseña incorrectos.";
     }
@@ -57,12 +59,12 @@ if (isset($_POST['login'])) {
 
     <form action="" method="POST" autocomplete="off">
         <div class="input-group">
-            <input type="text" name="usuario" placeholder="Usuario" autocomplete="username" required>
+            <input type="text" name="usuario" placeholder="Usuario" autocomplete="username" maxlength="20" required>
         </div>
         
         <div class="input-group">
             <div class="password-wrapper">
-                <input type="password" name="password" id="password" placeholder="Contraseña" autocomplete="new-password" value="" required>
+                <input type="password" name="password" id="password" placeholder="Contraseña" autocomplete="new-password" value="" maxlength="12" required>
                 <i class="fas fa-eye toggle-password" onclick="togglePassword('password', this)"></i>
             </div>
         </div>

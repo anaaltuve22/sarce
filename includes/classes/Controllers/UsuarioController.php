@@ -50,8 +50,8 @@ class UsuarioController extends BaseController {
         return $this->model->getBitacora($busqueda);
     }
 
-    public function iniciarRecuperacion($identificador) {
-        $userData = $this->model->getSecurityQuestionsByIdentifier($identificador);
+    public function iniciarRecuperacion($usuario) {
+        $userData = $this->model->getSecurityQuestionsByIdentifier($usuario);
         if ($userData) {
             return [
                 'status' => 'success', 
@@ -61,7 +61,7 @@ class UsuarioController extends BaseController {
                 'p3' => $userData['pregunta_3'] ?? ''
             ];
         }
-        return ['status' => 'error', 'msg' => 'Usuario o correo no encontrado.'];
+        return ['status' => 'error', 'msg' => 'Nombre de usuario no encontrado.'];
     }
 
     public function verificarRespuestas($userId, $r1_u, $r2_u, $r3_u) {
@@ -76,8 +76,8 @@ class UsuarioController extends BaseController {
     }
 
     public function restablecerClave($userId, $nuevaClave, $confirmarClave) {
-        if (strlen($nuevaClave) < 8) {
-            return ['status' => 'error', 'msg' => 'La contraseña debe tener al menos 8 caracteres.'];
+        if (strlen($nuevaClave) < 8 || strlen($nuevaClave) > 12) {
+            return ['status' => 'error', 'msg' => 'La contraseña debe tener entre 8 y 12 caracteres.'];
         }
         if ($nuevaClave !== $confirmarClave) {
             return ['status' => 'error', 'msg' => 'Las contraseñas no coinciden.'];
@@ -118,11 +118,11 @@ class UsuarioController extends BaseController {
         if (!filter_var($datos['correo'], FILTER_VALIDATE_EMAIL)) {
             return ['status' => 'error', 'msg' => 'El formato del correo electrónico no es correcto.'];
         }
-        if (strlen($datos['usuario']) < 4 || strlen($datos['usuario']) > 50) {
-            return ['status' => 'error', 'msg' => 'El nombre de usuario debe tener entre 4 y 50 caracteres.'];
+        if (strlen($datos['usuario']) < 4 || strlen($datos['usuario']) > 20) {
+            return ['status' => 'error', 'msg' => 'El nombre de usuario debe tener entre 4 y 20 caracteres.'];
         }
-        if (strlen($datos['clave']) < 8) {
-            return ['status' => 'error', 'msg' => 'La contraseña debe tener al menos 8 caracteres.'];
+        if (strlen($datos['clave']) < 8 || strlen($datos['clave']) > 12) {
+            return ['status' => 'error', 'msg' => 'La contraseña debe tener entre 8 y 12 caracteres.'];
         }
 
         // Validación obligatoria de preguntas de seguridad
@@ -132,13 +132,20 @@ class UsuarioController extends BaseController {
             if (empty($datos[$p_col]) || trim($datos[$p_col]) === '' || empty($datos[$r_col])) {
                 return ['status' => 'error', 'msg' => 'Debe completar todas las preguntas y respuestas de seguridad.'];
             }
+            // Validar que no acepte números en las respuestas
+            if (preg_match("/[0-9]/", $datos[$r_col])) {
+                return ['status' => 'error', 'msg' => 'Las respuestas de seguridad no pueden contener números.'];
+            }
+            if (strlen($datos[$r_col]) > 30) {
+                return ['status' => 'error', 'msg' => "La respuesta $i no debe exceder los 30 caracteres."];
+            }
         }
 
         if ($datos['clave'] !== ($datos['confirmar_clave'] ?? '')) {
             return ['status' => 'error', 'msg' => 'Las contraseñas no coinciden.'];
         }
 
-        if ($this->model->getByLogin($datos['usuario']) || $this->model->getByLogin($datos['correo'])) {
+        if ($this->model->getByLogin($datos['usuario']) || $this->model->getByEmail($datos['correo'])) {
             return ['status' => 'error', 'msg' => 'El nombre de usuario o el correo electrónico ya están registrados.'];
         }
 
@@ -176,6 +183,13 @@ class UsuarioController extends BaseController {
                 return ['status' => 'error', 'msg' => "Debe completar la pregunta y respuesta de seguridad $i."];
             }
 
+            if (preg_match("/[0-9]/", $datos[$r_key])) {
+                return ['status' => 'error', 'msg' => "La respuesta de seguridad $i no puede contener números."];
+            }
+            if (strlen($datos[$r_key]) > 30) {
+                return ['status' => 'error', 'msg' => "La respuesta de seguridad $i no debe exceder los 30 caracteres."];
+            }
+
             $datos["pregunta_$i"] = $datos[$p_key];
             $datos["respuesta_$i"] = $datos[$r_key];
             unset($datos[$p_key], $datos[$r_key]);
@@ -198,6 +212,9 @@ class UsuarioController extends BaseController {
 
         // Procesar contraseña si se envió una nueva
         if (!empty($datos['clave'])) {
+            if (strlen($datos['clave']) < 8 || strlen($datos['clave']) > 12) {
+                return ['status' => 'error', 'msg' => 'La nueva contraseña debe tener entre 8 y 12 caracteres.'];
+            }
             if ($datos['clave'] !== ($datos['confirmar_clave'] ?? '')) {
                 return ['status' => 'error', 'msg' => 'Las contraseñas no coinciden.'];
             }
@@ -211,6 +228,10 @@ class UsuarioController extends BaseController {
         if (!$esAdmin) {
             unset($datos['rol']);
             unset($datos['usuario']);
+        } elseif (isset($datos['usuario'])) {
+            if (strlen($datos['usuario']) < 4 || strlen($datos['usuario']) > 20) {
+                return ['status' => 'error', 'msg' => 'El nombre de usuario debe tener entre 4 y 20 caracteres.'];
+            }
         }
 
         // 3. LLAMADA CRÍTICA: Se pasan (datos, id) para evitar error 500 en el modelo

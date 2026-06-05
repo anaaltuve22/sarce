@@ -3,9 +3,18 @@ require_once 'BaseModel.php';
 
 class UsuarioModel extends BaseModel {
 
-    public function getByLogin($identificador) {
-        $stmt = mysqli_prepare($this->db, "SELECT * FROM usuarios WHERE usuario = ? OR correo = ?");
-        mysqli_stmt_bind_param($stmt, "ss", $identificador, $identificador);
+    public function getByLogin($usuario) {
+        $stmt = mysqli_prepare($this->db, "SELECT * FROM usuarios WHERE usuario = ?");
+        mysqli_stmt_bind_param($stmt, "s", $usuario);
+        mysqli_stmt_execute($stmt);
+        $resultado = mysqli_fetch_assoc(mysqli_stmt_get_result($stmt));
+        mysqli_stmt_close($stmt);
+        return $resultado;
+    }
+
+    public function getByEmail($correo) {
+        $stmt = mysqli_prepare($this->db, "SELECT * FROM usuarios WHERE correo = ?");
+        mysqli_stmt_bind_param($stmt, "s", $correo);
         mysqli_stmt_execute($stmt);
         $resultado = mysqli_fetch_assoc(mysqli_stmt_get_result($stmt));
         mysqli_stmt_close($stmt);
@@ -31,9 +40,9 @@ class UsuarioModel extends BaseModel {
         return $data;
     }
 
-    public function getSecurityQuestionsByIdentifier($identificador) {
-        $stmt = mysqli_prepare($this->db, "SELECT id, pregunta_1, pregunta_2, pregunta_3, respuesta_1, respuesta_2, respuesta_3 FROM usuarios WHERE usuario = ? OR correo = ?");
-        mysqli_stmt_bind_param($stmt, "ss", $identificador, $identificador);
+    public function getSecurityQuestionsByIdentifier($usuario) {
+        $stmt = mysqli_prepare($this->db, "SELECT id, pregunta_1, pregunta_2, pregunta_3, respuesta_1, respuesta_2, respuesta_3 FROM usuarios WHERE usuario = ?");
+        mysqli_stmt_bind_param($stmt, "s", $usuario);
         mysqli_stmt_execute($stmt);
         $result = mysqli_stmt_get_result($stmt);
         $data = mysqli_fetch_assoc($result);

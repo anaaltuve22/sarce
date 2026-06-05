@@ -79,7 +79,7 @@ if (isset($_POST['registrar_personal'])) {
                     <option value="<?php echo $p; ?>"><?php echo $p; ?></option>
                 <?php endforeach; ?>
             </select>
-            <input type="text" name="r1" placeholder="Respuesta 1" required style="margin-top:8px;">
+            <input type="text" name="r1" placeholder="Respuesta 1" maxlength="30" onkeypress="return soloLetras(event)" required style="margin-top:8px;">
         </div>
 
         <div class="input-box">
@@ -90,7 +90,7 @@ if (isset($_POST['registrar_personal'])) {
                     <option value="<?php echo $p; ?>"><?php echo $p; ?></option>
                 <?php endforeach; ?>
             </select>
-            <input type="text" name="r2" placeholder="Respuesta 2" required style="margin-top:8px;">
+            <input type="text" name="r2" placeholder="Respuesta 2" maxlength="30" onkeypress="return soloLetras(event)" required style="margin-top:8px;">
         </div>
 
         <div class="input-box">
@@ -101,7 +101,7 @@ if (isset($_POST['registrar_personal'])) {
                     <option value="<?php echo $p; ?>"><?php echo $p; ?></option>
                 <?php endforeach; ?>
             </select>
-            <input type="text" name="r3" placeholder="Respuesta 3" required style="margin-top:8px;">
+            <input type="text" name="r3" placeholder="Respuesta 3" maxlength="30" onkeypress="return soloLetras(event)" required style="margin-top:8px;">
         </div>
 
         <div class="input-box">

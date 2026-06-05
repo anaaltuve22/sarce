@@ -11,8 +11,8 @@ $usuarioCtrl = new UsuarioController($conexion);
 
 // PASO 1: Buscar usuario
 if (isset($_POST['buscar_usuario'])) {
-    $identificador = $_POST['identificador'];
-    $resultado = $usuarioCtrl->iniciarRecuperacion($identificador);
+    $usuario = $_POST['identificador'];
+    $resultado = $usuarioCtrl->iniciarRecuperacion($usuario);
 
     if ($resultado['status'] === 'success') {
         // Verificar si el usuario realmente tiene preguntas configuradas en la base de datos
@@ -107,8 +107,8 @@ if (isset($_POST['cambiar_clave'])) {
     <?php if($paso == 1): ?>
         <form method="POST" autocomplete="off">
             <div class="input-group">
-                <label><i class="fas fa-user"></i> Usuario o Correo</label>
-                <input type="text" name="identificador" placeholder="Ingrese su usuario" autocomplete="off" required>
+                <label><i class="fas fa-user"></i> Usuario</label>
+                <input type="text" name="identificador" placeholder="Ingrese su usuario" maxlength="20" autocomplete="off" required>
             </div>
             <button type="submit" name="buscar_usuario" class="btn-recuperar">Siguiente</button>
         </form>
@@ -119,19 +119,19 @@ if (isset($_POST['cambiar_clave'])) {
             <div class="input-group">
                 <label><i class="fas fa-shield-alt"></i> Pregunta de Seguridad 1:</label>
                 <div class="question-display"><?php echo htmlspecialchars($p1_db); ?></div>
-                <input type="text" name="r1" placeholder="Respuesta 1" required autofocus>
+                <input type="text" name="r1" placeholder="Respuesta 1" maxlength="30" onkeypress="return soloLetras(event)" required autofocus>
             </div>
 
             <div class="input-group">
                 <label><i class="fas fa-shield-alt"></i> Pregunta de Seguridad 2:</label>
                 <div class="question-display"><?php echo htmlspecialchars($p2_db); ?></div>
-                <input type="text" name="r2" placeholder="Respuesta 2" required>
+                <input type="text" name="r2" placeholder="Respuesta 2" maxlength="30" onkeypress="return soloLetras(event)" required>
             </div>
 
             <div class="input-group">
                 <label><i class="fas fa-shield-alt"></i> Pregunta de Seguridad 3:</label>
                 <div class="question-display"><?php echo htmlspecialchars($p3_db); ?></div>
-                <input type="text" name="r3" placeholder="Respuesta 3" required>
+                <input type="text" name="r3" placeholder="Respuesta 3" maxlength="30" onkeypress="return soloLetras(event)" required>
             </div>
 
             <button type="submit" name="verificar_respuesta" class="btn-recuperar">Verificar Todas</button>
@@ -147,14 +147,14 @@ if (isset($_POST['cambiar_clave'])) {
             <div class="input-group">
                 <label><i class="fas fa-lock"></i> Nueva Contraseña</label>
                 <div class="password-wrapper">
-                    <input type="password" name="nueva_clave" id="nueva_clave" placeholder="Mínimo 8 caracteres" autocomplete="new-password" required autofocus>
+                    <input type="password" name="nueva_clave" id="nueva_clave" placeholder="Entre 8 y 12 caracteres" maxlength="12" autocomplete="new-password" required autofocus>
                     <i class="fas fa-eye toggle-password" onclick="togglePassword('nueva_clave', this)"></i>
                 </div>
             </div>
             <div class="input-group">
                 <label><i class="fas fa-check-double"></i> Confirmar Contraseña</label>
                 <div class="password-wrapper">
-                    <input type="password" name="confirmar_clave" id="confirmar_clave" placeholder="Repita la contraseña" autocomplete="new-password" required>
+                    <input type="password" name="confirmar_clave" id="confirmar_clave" placeholder="Repita la contraseña" maxlength="12" autocomplete="new-password" required>
                     <i class="fas fa-eye toggle-password" onclick="togglePassword('confirmar_clave', this)"></i>
                 </div>
             </div>

@@ -33,16 +33,16 @@ include '../../includes/layout_header.php';
 
     <form method="POST">
         <div class="form-grid">
-            <div class="input-box"><label>Nombre:</label><input type="text" name="nombre" value="<?php echo $datos['nombre']; ?>" maxlength="25" onkeypress="return soloLetras(event)" required></div>
-            <div class="input-box"><label>Apellido:</label><input type="text" name="apellido" value="<?php echo $datos['apellido']; ?>" maxlength="25" onkeypress="return soloLetras(event)" required></div>
+            <div class="input-box"><label>Nombres:</label><input type="text" name="nombre" value="<?php echo $datos['nombre']; ?>" maxlength="25" onkeypress="return soloLetras(event)" required></div>
+            <div class="input-box"><label>Apellidos:</label><input type="text" name="apellido" value="<?php echo $datos['apellido']; ?>" maxlength="25" onkeypress="return soloLetras(event)" required></div>
         </div>
         <div class="input-box"><label>Correo:</label><input type="email" name="correo" value="<?php echo $datos['correo']; ?>" required></div>
-        <div class="input-box"><label>Usuario:</label><input type="text" <?php echo $esAdmin ? 'name="usuario"' : 'class="readonly-input" readonly'; ?> value="<?php echo $datos['usuario']; ?>"></div>
+        <div class="input-box"><label>Usuario:</label><input type="text" <?php echo $esAdmin ? 'name="usuario" maxlength="20"' : 'class="readonly-input" readonly'; ?> value="<?php echo $datos['usuario']; ?>"></div>
         
         <div class="input-box">
             <label><i class="fas fa-lock"></i> Nueva Contraseña (dejar vacío para no cambiar):</label>
             <div class="password-wrapper">
-                <input type="password" name="clave" id="clave" placeholder="********">
+                <input type="password" name="clave" id="clave" placeholder="********" maxlength="12">
                 <i class="fas fa-eye toggle-password" onclick="togglePassword('clave', this)"></i>
             </div>
         </div>
@@ -50,7 +50,7 @@ include '../../includes/layout_header.php';
         <div class="input-box">
             <label><i class="fas fa-check-double"></i> Confirmar Contraseña:</label>
             <div class="password-wrapper">
-                <input type="password" name="confirmar_clave" id="confirmar_clave" placeholder="Repita la contraseña">
+                <input type="password" name="confirmar_clave" id="confirmar_clave" placeholder="Repita la contraseña" maxlength="12">
                 <i class="fas fa-eye toggle-password" onclick="togglePassword('confirmar_clave', this)"></i>
             </div>
         </div>
@@ -65,7 +65,7 @@ include '../../includes/layout_header.php';
                     <?php endif; ?>
                 <?php endforeach; ?>
             </select>
-            <input type="text" name="r1" placeholder="Respuesta de seguridad" required>
+            <input type="text" name="r1" placeholder="Respuesta de seguridad" maxlength="30" onkeypress="return soloLetras(event)" required>
         </div>
 
         <div class="input-box">
@@ -78,7 +78,7 @@ include '../../includes/layout_header.php';
                     <?php endif; ?>
                 <?php endforeach; ?>
             </select>
-            <input type="text" name="r2" placeholder="Respuesta de seguridad" required>
+            <input type="text" name="r2" placeholder="Respuesta de seguridad" maxlength="30" onkeypress="return soloLetras(event)" required>
         </div>
 
         <div class="input-box">
@@ -91,7 +91,7 @@ include '../../includes/layout_header.php';
                     <?php endif; ?>
                 <?php endforeach; ?>
             </select>
-            <input type="text" name="r3" placeholder="Respuesta de seguridad" required>
+            <input type="text" name="r3" placeholder="Respuesta de seguridad" maxlength="30" onkeypress="return soloLetras(event)" required>
         </div>
 
         <?php if($esAdmin): ?>
