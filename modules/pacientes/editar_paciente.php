@@ -46,10 +46,10 @@ if (isset($_POST['actualizar'])) {
         <label>Cédula:</label>
         <input type="text" name="cedula" value="<?php echo $p['cedula']; ?>" minlength="7" maxlength="8" onkeypress="return soloNumeros(event)" required>
 
-        <label>Nombre:</label>
+        <label>Nombres:</label>
         <input type="text" name="nombre" value="<?php echo $p['nombre']; ?>" maxlength="25" onkeypress="return soloLetras(event)" required>
 
-        <label>Apellido:</label>
+        <label>Apellidos:</label>
         <input type="text" name="apellido" value="<?php echo $p['apellido']; ?>" maxlength="25" onkeypress="return soloLetras(event)" required>
 
         <label>Fecha de Nacimiento:</label>

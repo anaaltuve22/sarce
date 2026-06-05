@@ -64,7 +64,7 @@ $edad_p = ($paciente['edad'] > 0) ? $paciente['edad'] : "No registrada";
             <div class="data-item"> <b>Dirección:</b> <span><?php echo $direccion_p; ?></span> </div> 
         </div> 
 
-        <form action="procesar_consulta.php" method="POST"> 
+        <form action="procesar_consulta.php" method="POST" id="formAtencion"> 
             <input type="hidden" name="cedula_paciente" value="<?php echo $paciente['cedula']; ?>"> 
             <input type="hidden" name="edad" value="<?php echo $paciente['edad']; ?>"> 
             <input type="hidden" name="direccion" value="<?php echo $direccion_p; ?>">

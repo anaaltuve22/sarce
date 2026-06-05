@@ -343,6 +343,23 @@ document.addEventListener('DOMContentLoaded', () => {
             cambiosDetectados = false;
         });
     }
+
+    // --- VALIDACIÓN DE ENTREGA DE MEDICAMENTOS ---
+    const formAtencion = document.getElementById('formAtencion');
+    if (formAtencion) {
+        formAtencion.addEventListener('submit', (e) => {
+            const entregaCheck = document.getElementById('entrega_check');
+            if (entregaCheck && entregaCheck.checked && medicamentosSeleccionados.length === 0) {
+                e.preventDefault();
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Medicamento Requerido',
+                    text: 'Debe agregar al menos un medicamento a la lista si marcó la opción de entrega.',
+                    confirmButtonColor: '#28a745'
+                });
+            }
+        });
+    }
 });
 
 /**
