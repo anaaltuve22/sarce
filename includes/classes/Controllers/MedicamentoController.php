@@ -22,6 +22,9 @@ class MedicamentoController extends BaseController {
     }
 
     public function registrar($datos) {
+        if (strlen($datos['nombre']) > 50 || strlen($datos['descripcion']) > 50) {
+            return ['status' => 'error', 'msg' => 'El nombre y la descripción del medicamento no deben exceder los 50 caracteres.'];
+        }
         if ($this->model->insertar($datos)) {
             $this->registrarBitacora("Nuevo medicamento registrado: {$datos['nombre']}");
             return ['status' => 'success', 'msg' => 'Medicamento guardado con éxito.'];
@@ -30,6 +33,9 @@ class MedicamentoController extends BaseController {
     }
 
     public function actualizar($datos) {
+        if (strlen($datos['nombre']) > 50 || strlen($datos['descripcion']) > 50) {
+            return ['status' => 'error', 'msg' => 'El nombre y la descripción del medicamento no deben exceder los 50 caracteres.'];
+        }
         if ($this->model->actualizar($datos)) {
             $this->registrarBitacora("Medicamento actualizado: {$datos['nombre']}");
             return ['status' => 'success', 'msg' => 'Cambios guardados con éxito.'];

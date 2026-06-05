@@ -63,6 +63,7 @@ if (isset($_POST['registrar_personal'])) {
                            id="cedula_input" 
                            onkeypress="return soloNumeros(event)" 
                            oninput="verificarCedulaPersonalRealTime(this.value)"
+                           minlength="7"
                            maxlength="8" 
                            placeholder="Ej: 12345678" 
                            required>

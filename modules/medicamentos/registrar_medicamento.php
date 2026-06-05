@@ -30,11 +30,11 @@ if (isset($_POST['registrar'])) {
     <form method="POST">
         <div class="form-group">
             <label><i class="fas fa-tag"></i> Nombre del Medicamento:</label>
-            <input type="text" name="nombre" placeholder="Ej: Acetaminofén 500mg" required>
+            <input type="text" name="nombre" maxlength="50" placeholder="Ej: Acetaminofén 500mg" required>
         </div>
         <div class="form-group">
             <label><i class="fas fa-align-left"></i> Descripción / Presentación:</label>
-            <textarea name="descripcion" rows="3" placeholder="Ej: Tabletas - Caja de 20 unidades" required></textarea>
+            <textarea name="descripcion" maxlength="50" rows="3" placeholder="Ej: Tabletas - Caja de 20 unidades" required></textarea>
         </div>
         <div class="btn-container-sarce">
             <button type="submit" name="registrar" class="btn-sarce" style="background-color: #28a745;">

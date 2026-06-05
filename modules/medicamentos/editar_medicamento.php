@@ -33,9 +33,9 @@ if (isset($_POST['actualizar'])) {
     <form method="POST">
         <input type="hidden" name="id_med" value="<?php echo $m['id']; ?>">
         <label>Nombre del Medicamento:</label>
-        <input type="text" name="nombre" value="<?php echo $m['nombre']; ?>" required>
+        <input type="text" name="nombre" value="<?php echo $m['nombre']; ?>" maxlength="50" required>
         <label>Descripción / Presentación:</label>
-        <textarea name="descripcion" rows="3" required><?php echo $m['descripcion']; ?></textarea>
+        <textarea name="descripcion" maxlength="50" rows="3" required><?php echo $m['descripcion']; ?></textarea>
         <div class="btn-container-sarce">
             <button type="submit" name="actualizar" class="btn-sarce" style="background-color: #28a745;">
                 <i class="fas fa-save"></i> ACTUALIZAR

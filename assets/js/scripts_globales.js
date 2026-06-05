@@ -155,7 +155,7 @@ function verificarCedulaPacienteRealTime(cedula) {
         cedula = cleaned;
     }
 
-    if (cedula.length < 8) return;
+    if (cedula.length < 7) return;
     
     fetch(`registrar_paciente.php?verificar_ajax=1&cedula=${cedula}`)
         .then(response => response.json())
@@ -192,7 +192,7 @@ function verificarCedulaPersonalRealTime(cedula) {
         cedula = cleaned;
     }
 
-    if (cedula.length < 8) return;
+    if (cedula.length < 7) return;
     
     fetch(`registrar_personal.php?verificar_ajax=1&cedula=${cedula}`)
         .then(response => response.json())
@@ -318,6 +318,31 @@ document.addEventListener('DOMContentLoaded', () => {
     // Inicializar validación de contraseñas en tiempo real
     setupPasswordMatch('clave', 'confirmar_clave');
     setupPasswordMatch('nueva_clave', 'confirmar_clave');
+
+    // --- DETECCIÓN DE CAMBIOS EN FORMULARIOS DE EDICIÓN ---
+    const formEditar = document.getElementById('formEditar');
+    if (formEditar) {
+        let cambiosDetectados = false;
+
+        // Detectar si el usuario escribe o cambia algún valor
+        formEditar.addEventListener('input', () => {
+            cambiosDetectados = true;
+        });
+
+        // Advertir al usuario antes de salir si hay cambios sin guardar
+        window.addEventListener('beforeunload', (event) => {
+            if (cambiosDetectados) {
+                event.preventDefault();
+                // Requerido por navegadores modernos para mostrar el mensaje nativo
+                event.returnValue = ''; 
+            }
+        });
+
+        // Resetear la bandera al enviar el formulario para que no salte la alerta al guardar
+        formEditar.addEventListener('submit', () => {
+            cambiosDetectados = false;
+        });
+    }
 });
 
 /**

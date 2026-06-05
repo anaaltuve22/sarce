@@ -38,7 +38,7 @@ include '../../includes/layout_header.php';
 <div class="form-consulta-manual">
     <h2>Registro Diario de Pacientes</h2>
     <form method="POST">
-        <input type="number" name="cedula" value="<?php echo htmlspecialchars($_GET['cedula'] ?? '', ENT_QUOTES, 'UTF-8'); ?>" placeholder="Cédula del Paciente" required>
+        <input type="number" name="cedula" value="<?php echo htmlspecialchars($_GET['cedula'] ?? '', ENT_QUOTES, 'UTF-8'); ?>" placeholder="Cédula del Paciente" min="1000000" max="99999999" required>
 
         <input type="number" name="cedula_personal" placeholder="Cédula del Personal que atiende" required>
 

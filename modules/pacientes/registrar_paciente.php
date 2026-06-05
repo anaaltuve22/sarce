@@ -62,10 +62,11 @@ if (isset($_POST['registrar'])) {
        id="cedula_input" 
        onkeypress="return soloNumeros(event)" 
        oninput="verificarCedulaPacienteRealTime(this.value)"
+       minlength="7"
        maxlength="8" 
        placeholder="Ej: 22656296" 
        required>
-       <small>Máximo 8 dígitos sin puntos ni letras</small>
+       <small>Entre 7 y 8 dígitos sin puntos ni letras</small>
                 </div>
 
                 <div>

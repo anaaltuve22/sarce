@@ -40,11 +40,11 @@ if (isset($_POST['actualizar'])) {
 <div class="box">
     <h2><i class="fas fa-user-edit"></i> Editar Paciente</h2>
     
-    <form action="" method="POST">
+    <form action="" method="POST" id="formEditar">
         <input type="hidden" name="cedula_vieja" value="<?php echo $p['cedula']; ?>">
 
         <label>Cédula:</label>
-        <input type="text" name="cedula" value="<?php echo $p['cedula']; ?>" maxlength="8" onkeypress="return soloNumeros(event)" required>
+        <input type="text" name="cedula" value="<?php echo $p['cedula']; ?>" minlength="7" maxlength="8" onkeypress="return soloNumeros(event)" required>
 
         <label>Nombre:</label>
         <input type="text" name="nombre" value="<?php echo $p['nombre']; ?>" maxlength="25" onkeypress="return soloLetras(event)" required>
